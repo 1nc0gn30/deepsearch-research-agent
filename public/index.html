@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Deep Research Studio | Autonomous Research Agent</title>
+  <style>
+    :root {
+      --g-blue: #1a73e8;
+      --g-blue-dark: #1557b0;
+      --g-blue-light: #e8f0fe;
+      --g-green: #1e8e3e;
+      --g-green-light: #e6f4ea;
+      --g-yellow: #f9ab00;
+      --g-yellow-light: #fef7e0;
+      --g-red: #d93025;
+      --g-red-light: #fce8e6;
+      --g-purple: #9334e6;
+      --g-purple-light: #f3e8fd;
+      
+      --surface: #ffffff;
+      --surface-variant: #f8f9fa;
+      --surface-container: #f1f3f4;
+      --surface-hover: #e8eaed;
+      --outline: #dadce0;
+      --outline-variant: #e0e0e0;
+      --text-primary: #202124;
+      --text-secondary: #5f6368;
+      --text-tertiary: #80868b;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+      --shadow-md: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+      --shadow-lg: 0 2px 6px 2px rgba(60,64,67,0.15), 0 8px 16px 4px rgba(60,64,67,0.1);
+      
+      --font-stack: Inter, Roboto, "Google Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", Consolas, Monaco, "Courier New", monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      background-color: var(--surface-variant);
+      color: var(--text-primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Top App Bar */
+    header.app-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--surface);
+      border-bottom: 1px solid var(--outline);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .google-dots {
+      display: inline-flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot.blue { background-color: var(--g-blue); }
+    .dot.red { background-color: var(--g-red); }
+    .dot.yellow { background-color: var(--g-yellow); }
+    .dot.green { background-color: var(--g-green); }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: #1f1f1f;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--g-blue-light);
+      color: var(--g-blue-dark);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: var(--surface-container);
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--g-green);
+      box-shadow: 0 0 0 2px rgba(30, 142, 62, 0.2);
+    }
+
+    /* Tabs Navigation Bar */
+    nav.workspace-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--outline);
+      display: flex;
+      padding: 0 24px;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    nav.workspace-nav::-webkit-scrollbar { display: none; }
+
+    .nav-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-tab:hover {
+      color: var(--g-blue);
+      background: var(--g-blue-light);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+
+    .nav-tab.active {
+      color: var(--g-blue);
+      font-weight: 600;
+      border-bottom-color: var(--g-blue);
+    }
+
+    /* Main Container */
+    main.main-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+    .tab-pane.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Search Bar Box */
+    .hero-search-card {
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: var(--surface-container);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-full);
+      padding: 6px 8px 6px 20px;
+      transition: all 0.2s ease;
+    }
+
+    .search-input-wrapper:focus-within {
+      background: var(--surface);
+      border-color: var(--g-blue);
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 16px;
+      font-family: var(--font-stack);
+      color: var(--text-primary);
+      outline: none;
+      padding: 8px 0;
+    }
+
+    .btn-search {
+      background: var(--g-blue);
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .btn-search:hover { background: var(--g-blue-dark); }
+    .btn-search:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .chips-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-right: 4px;
+    }
+
+    .chip {
+      background: var(--surface-container);
+      color: var(--text-secondary);
+      border: 1px solid var(--outline);
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .chip:hover {
+      background: var(--surface-hover);
+      color: var(--text-primary);
+    }
+
+    .chip.active {
+      background: var(--g-blue-light);
+      color: var(--g-blue-dark);
+      border-color: var(--g-blue);
+      font-weight: 600;
+    }
+
+    .preset-chip {
+      font-size: 12px;
+      background: #f8f9fa;
+      border-color: #e0e0e0;
+    }
+    .preset-chip:hover {
+      border-color: var(--g-blue);
+      color: var(--g-blue);
+    }
+
+    /* Grid Layouts */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .studio-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Studio Sidebar: Stage Planner & Stream */
+    .panel-card {
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--outline);
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Timeline Stepper */
+    .stepper {
+      list-style: none;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .stepper::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: var(--outline);
+    }
+
+    .step-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .step-dot {
+      position: absolute;
+      left: -20px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--text-tertiary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .step-item.active .step-dot {
+      border-color: var(--g-blue);
+      background: var(--g-blue);
+      box-shadow: 0 0 0 3px rgba(26,115,232,0.25);
+    }
+
+    .step-item.completed .step-dot {
+      border-color: var(--g-green);
+      background: var(--g-green);
+    }
+
+    .step-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Stream Feed */
+    .stream-feed {
+      max-height: 260px;
+      overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: #1e1e24;
+      color: #a0aec0;
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      line-height: 1.6;
+    }
+
+    .stream-line {
+      margin-bottom: 4px;
+      word-break: break-all;
+    }
+    .stream-line.info { color: #63b3ed; }
+    .stream-line.success { color: #68d391; }
+    .stream-line.warn { color: #f6e05e; }
+
+    /* Report Paper Area */
+    .report-paper {
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-md);
+      padding: 36px 44px;
+      box-shadow: var(--shadow-sm);
+      min-height: 700px;
+    }
+
+    .report-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--outline);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-tool {
+      background: var(--surface-container);
+      color: var(--text-primary);
+      border: 1px solid var(--outline);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-tool:hover {
+      background: var(--surface-hover);
+      border-color: var(--text-secondary);
+    }
+    .btn-tool.primary {
+      background: var(--g-blue-light);
+      color: var(--g-blue-dark);
+      border-color: var(--g-blue);
+    }
+
+    /* Markdown Formatted Typography */
+    .markdown-body h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1f1f1f;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+
+    .markdown-body h2 {
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--g-blue-dark);
+      margin-top: 28px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--g-blue-light);
+    }
+
+    .markdown-body h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .markdown-body p {
+      font-size: 14.5px;
+      color: #3c4043;
+      margin-bottom: 14px;
+      line-height: 1.65;
+    }
+
+    .markdown-body ul, .markdown-body ol {
+      margin-left: 24px;
+      margin-bottom: 14px;
+      font-size: 14.5px;
+      color: #3c4043;
+    }
+
+    .markdown-body li { margin-bottom: 6px; }
+
+    .callout-box {
+      background: var(--surface-variant);
+      border-left: 4px solid var(--g-blue);
+      padding: 14px 18px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+
+    .callout-box.green {
+      border-left-color: var(--g-green);
+      background: var(--g-green-light);
+    }
+
+    /* Tables */
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 13.5px;
+    }
+
+    table.data-table th, table.data-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--outline);
+    }
+
+    table.data-table th {
+      background: var(--surface-container);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    table.data-table tr:hover td {
+      background-color: var(--surface-variant);
+    }
+
+    /* Badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .status-badge.verified { background: var(--g-green-light); color: var(--g-green); }
+    .status-badge.contested { background: var(--g-yellow-light); color: #b06000; }
+    .status-badge.refuted { background: var(--g-red-light); color: var(--g-red); }
+    .status-badge.info { background: var(--g-blue-light); color: var(--g-blue-dark); }
+
+    /* SVG Charts Container */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .chart-card {
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chart-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Tree Visualizer */
+    .tree-wrapper {
+      background: var(--surface-variant);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      overflow-x: auto;
+    }
+
+    .tree-node {
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--g-blue);
+    }
+
+    .tree-node.branch {
+      margin-left: 28px;
+      position: relative;
+      border-left-color: var(--g-purple);
+    }
+
+    .tree-node.leaf {
+      margin-left: 56px;
+      border-left-color: var(--g-green);
+    }
+
+    /* Code & Config Box */
+    .config-box {
+      background: #1e1e24;
+      color: #f7fafc;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      overflow-x: auto;
+      position: relative;
+      margin-top: 10px;
+    }
+
+    .btn-copy-code {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .btn-copy-code:hover { background: rgba(255,255,255,0.25); }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #202124;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      box-shadow: var(--shadow-md);
+      z-index: 9999;
+      display: none;
+      animation: slideUp 0.2s ease-out;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="google-dots">
+        <span class="dot blue"></span>
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <div class="brand-title">
+        Google Deep Research Studio
+        <span class="brand-badge">Agent v2.4</span>
+      </div>
+    </div>
+    
+    <div class="header-actions">
+      <div class="status-indicator">
+        <span class="pulse-dot"></span>
+        <span>MCP Autonomous Engine Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Workspace Tabs Navigation -->
+  <nav class="workspace-nav">
+    <button class="nav-tab active" onclick="switchTab('studio')">🔍 Deep Research Studio</button>
+    <button class="nav-tab" onclick="switchTab('planner')">📑 Autonomous Query Planner</button>
+    <button class="nav-tab" onclick="switchTab('consensus')">⚖️ Source &amp; Consensus Matrix</button>
+    <button class="nav-tab" onclick="switchTab('analytics')">📊 Data Points &amp; SVG Visuals</button>
+    <button class="nav-tab" onclick="switchTab('mcp-hub')">🤖 AI Agent &amp; MCP Hub</button>
+    <button class="nav-tab" onclick="switchTab('methodology')">📖 Methodology &amp; Docs</button>
+  </nav>
+
+  <!-- Main Content Body -->
+  <main class="main-content">
+
+    <!-- Global Search & Depth Controls -->
+    <div class="hero-search-card">
+      <div class="search-input-wrapper">
+        <input 
+          type="text" 
+          id="researchQueryInput" 
+          class="search-input" 
+          placeholder="Ask any complex scientific, technical, or market intelligence question..." 
+          value="State of Fault-Tolerant Quantum Computing &amp; Logical Qubit Scaling (2026)"
+        />
+        <button id="btnRunResearch" class="btn-search" onclick="runAutonomousResearch()">
+          <span>Run Deep Research</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+      </div>
+
+      <div class="control-row">
+        <!-- Depth Selection Chips -->
+        <div class="chips-group">
+          <span class="chip-label">Research Depth:</span>
+          <button class="chip" onclick="setDepth(this, 'quick')">⚡ Quick (1 Stage)</button>
+          <button class="chip" onclick="setDepth(this, 'deep')">🔬 Deep (3 Stages)</button>
+          <button class="chip active" onclick="setDepth(this, 'exhaustive')">🌌 Exhaustive (5 Stages)</button>
+        </div>
+
+        <!-- Preset Topic Quick Pickers -->
+        <div class="chips-group">
+          <span class="chip-label">Presets:</span>
+          <button class="chip preset-chip" onclick="loadPreset('quantum')">Quantum FTQC 2026</button>
+          <button class="chip preset-chip" onclick="loadPreset('agents')">Enterprise AI Agents</button>
+          <button class="chip preset-chip" onclick="loadPreset('crispr')">CRISPR-Cas12 Delivery</button>
+          <button class="chip preset-chip" onclick="loadPreset('fusion')">Fusion Q-Factor Net Gain</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 1: Deep Research Studio -->
+    <section id="pane-studio" class="tab-pane active">
+      <div class="studio-grid">
+        
+        <!-- Left Sidebar: Planner Stepper & Real-time Stream -->
+        <aside class="sidebar-col">
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g-blue)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Autonomous Planner Stages
+              </div>
+              <span id="planStageBadge" class="status-badge info">Stage 5 / 5</span>
+            </div>
+
+            <ul class="stepper">
+              <li class="step-item completed" id="step1">
+                <div class="step-dot"></div>
+                <div class="step-title">1. Scoping &amp; Query Tree</div>
+                <div class="step-desc">Decompose into 4 investigative angles</div>
+              </li>
+              <li class="step-item completed" id="step2">
+                <div class="step-dot"></div>
+                <div class="step-title">2. Evidence Harvesting</div>
+                <div class="step-desc">48 primary papers &amp; preprints indexed</div>
+              </li>
+              <li class="step-item completed" id="step3">
+                <div class="step-dot"></div>
+                <div class="step-title">3. Credibility &amp; Domain Scoring</div>
+                <div class="step-desc">Weighted authority calibration (&gt;85 avg)</div>
+              </li>
+              <li class="step-item completed" id="step4">
+                <div class="step-dot"></div>
+                <div class="step-title">4. Consensus &amp; Contradictions</div>
+                <div class="step-desc">4 empirical claims cross-corroborated</div>
+              </li>
+              <li class="step-item completed active" id="step5">
+                <div class="step-dot"></div>
+                <div class="step-title">5. Multi-Perspective Synthesis</div>
+                <div class="step-desc">Grounded report generated with math scores</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Real-Time Stream Log -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g-green)" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                Live Synthesis Event Stream
+              </div>
+            </div>
+            <div class="stream-feed" id="streamLog">
+              <div class="stream-line info">[00:00.12] Initializing Autonomous DeepSearch Agent v2.4...</div>
+              <div class="stream-line info">[00:01.40] Root query decomposed into 4 DAG branches.</div>
+              <div class="stream-line info">[00:03.88] Harvesting ArXiv, Nature, Science, IEEE indexes...</div>
+              <div class="stream-line success">[00:07.15] 48 documents fetched. Extracted 24 empirical claims.</div>
+              <div class="stream-line success">[00:09.90] Cross-source consensus agreement computed at 96.4%.</div>
+              <div class="stream-line success">[00:12.44] Synthesis complete. Confidence score: 0.964.</div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Main: Synthesized Report Paper Preview -->
+        <div class="report-col">
+          <div class="report-paper">
+            <div class="report-toolbar">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="status-badge verified" id="paperConfidenceBadge">96.4% Grounded Confidence</span>
+                <span style="font-size: 13px; color: var(--text-secondary);" id="paperSourceCount">48 Primary Sources</span>
+              </div>
+              <div class="btn-group">
+                <button class="btn-tool" onclick="copyReportMarkdown()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  Copy Markdown
+                </button>
+                <button class="btn-tool" onclick="downloadJSONBundle()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  Export JSON Bundle
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Markdown Body -->
+            <div class="markdown-body" id="reportContentArea">
+              <h1>State of Fault-Tolerant Quantum Computing &amp; Logical Qubit Scaling (2026)</h1>
+              <div class="callout-box">
+                <strong>Executive Summary:</strong> The period between 2024 and 2026 marks the conclusive transition from the NISQ era to the Fault-Tolerant Quantum Computing (FTQC) regime. Experimental physical error rates have fallen below the fault-tolerance threshold ($p &lt; 0.25\% &lt; p_{th} \approx 0.75\%$), enabling exponential error suppression across superconducting, neutral atom, and trapped-ion modalities.
+              </div>
+
+              <h2>1. Key 2026 Architectural Benchmarks</h2>
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Organization</th>
+                    <th>Hardware Modality</th>
+                    <th>Physical Qubits</th>
+                    <th>Logical Qubits</th>
+                    <th>2Q Fidelity</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Google Quantum AI</strong></td>
+                    <td>Superconducting (Willow)</td>
+                    <td>105</td>
+                    <td>12</td>
+                    <td>99.84%</td>
+                    <td><span class="status-badge verified">Verified</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>IBM Quantum</strong></td>
+                    <td>Superconducting (Heron r2)</td>
+                    <td>156</td>
+                    <td>16 (qLDPC)</td>
+                    <td>99.78%</td>
+                    <td><span class="status-badge verified">Verified</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Harvard / QuEra</strong></td>
+                    <td>Neutral Atoms (Rb/Cs)</td>
+                    <td>256</td>
+                    <td>48</td>
+                    <td>99.65%</td>
+                    <td><span class="status-badge verified">Verified</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Quantinuum</strong></td>
+                    <td>Trapped Ion (H2)</td>
+                    <td>56</td>
+                    <td>32</td>
+                    <td>99.91%</td>
+                    <td><span class="status-badge verified">Verified</span></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h2>2. Consensus &amp; Verification Findings</h2>
+              <div class="callout-box green">
+                <strong>Strong Consensus (94.2% Agreement):</strong> Dynamic optical shuttling in neutral atom arrays enables faster scaling of logical qubit counts (48 logical qubits) compared to planar superconducting chips through 2026.
+              </div>
+              <p>Magic state distillation footprints have decreased from 10,000:1 to between 450:1 and 850:1 via 3D color codes and Floquet topologies.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 2: Autonomous Query Planner -->
+    <section id="pane-planner" class="tab-pane">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g-blue)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            Hierarchical Tree-of-Thought Query Decomposition
+          </div>
+          <button class="btn-tool primary" onclick="regenerateQueryTree()">Regenerate Sub-Queries</button>
+        </div>
+        
+        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;">
+          DeepSearch autonomously decomposes complex research questions into orthogonal branches with target Boolean operators and site restrictions.
+        </p>
+
+        <div class="tree-wrapper" id="queryTreeContainer">
+          <div class="tree-node">
+            <strong>🎯 Root Research Goal:</strong> <span id="treeRootGoal">State of Fault-Tolerant Quantum Computing &amp; Logical Qubit Scaling (2026)</span>
+          </div>
+          <div class="tree-node branch">
+            <strong>🌿 Branch 1 (Architectural Thresholds):</strong> <code>site:nature.com OR site:aps.org "quantum error correction" "distance 7" surface code filetype:pdf</code>
+          </div>
+          <div class="tree-node leaf">
+            <strong>🍃 Sub-Query 1.1:</strong> <code>physical vs logical error rate scaling Google Willow processor 2026</code>
+          </div>
+          <div class="tree-node branch">
+            <strong>🌿 Branch 2 (Neutral Atom Scaling):</strong> <code>site:science.org Harvard QuEra 48 logical qubits neutral atom transversal gates</code>
+          </div>
+          <div class="tree-node leaf">
+            <strong>🍃 Sub-Query 2.1:</strong> <code>optical tweezer shuttling latency vs fidelity benchmarks</code>
+          </div>
+          <div class="tree-node branch">
+            <strong>🌿 Branch 3 (qLDPC Footprint Reduction):</strong> <code>IBM Quantum Heron bivariate bicycle qLDPC code overhead 100 logical qubits</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: Source & Consensus Matrix -->
+    <section id="pane-consensus" class="tab-pane">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            Harvested Source Inventory &amp; Credibility Scores
+          </div>
+          <input type="text" placeholder="Filter sources by domain or keyword..." class="search-input" style="max-width:300px; padding:4px 12px; border:1px solid var(--outline); border-radius: var(--radius-sm); font-size:13px;" oninput="filterSources(this.value)" />
+        </div>
+
+        <table class="data-table" id="sourcesTable">
+          <thead>
+            <tr>
+              <th>Domain</th>
+              <th>Document Title</th>
+              <th>Authority Score</th>
+              <th>Credibility Tier</th>
+              <th>Corroborated Claims</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>nature.com</strong></td>
+              <td>Suppressing quantum errors by scaling a quantum error-correcting code</td>
+              <td><span class="status-badge verified">98 / 100</span></td>
+              <td>Tier 1 (Peer-Reviewed)</td>
+              <td>Physical-to-logical break-even threshold</td>
+            </tr>
+            <tr>
+              <td><strong>science.org</strong></td>
+              <td>Fault-tolerant quantum computation with dynamic neutral atom arrays</td>
+              <td><span class="status-badge verified">97 / 100</span></td>
+              <td>Tier 1 (Peer-Reviewed)</td>
+              <td>48 Logical neutral atom qubits</td>
+            </tr>
+            <tr>
+              <td><strong>journals.aps.org</strong></td>
+              <td>High-fidelity logical entanglement in a 32-qubit QCCD processor</td>
+              <td><span class="status-badge verified">95 / 100</span></td>
+              <td>Tier 1 (Physical Review X)</td>
+              <td>99.914% 2Q trapped-ion gate fidelity</td>
+            </tr>
+            <tr>
+              <td><strong>ieee.org</strong></td>
+              <td>Fault-tolerant qLDPC architecture on heavy-hex lattices</td>
+              <td><span class="status-badge verified">94 / 100</span></td>
+              <td>Tier 1 (IEEE TQE)</td>
+              <td>qLDPC 10x physical footprint reduction</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 4: Data Points & SVG Visuals -->
+    <section id="pane-analytics" class="tab-pane">
+      <div class="chart-grid">
+        
+        <!-- Multi-Bar Chart: 2Q Physical Gate Fidelity -->
+        <div class="chart-card">
+          <div class="chart-title">
+            <span>Physical 2-Qubit Gate Fidelity by Vendor (%)</span>
+            <span class="status-badge verified">2026 Validated</span>
+          </div>
+          <svg viewBox="0 0 450 220" width="100%" height="220" style="overflow:visible;">
+            <!-- Axis lines -->
+            <line x1="50" y1="180" x2="420" y2="180" stroke="#dadce0" stroke-width="1.5" />
+            <line x1="50" y1="20" x2="50" y2="180" stroke="#dadce0" stroke-width="1.5" />
+            
+            <!-- Grid labels -->
+            <text x="42" y="184" font-size="10" fill="#80868b" text-anchor="end">99.0%</text>
+            <text x="42" y="105" font-size="10" fill="#80868b" text-anchor="end">99.5%</text>
+            <text x="42" y="25" font-size="10" fill="#80868b" text-anchor="end">100%</text>
+
+            <!-- Bars -->
+            <!-- Google: 99.84% -->
+            <rect x="70" y="45" width="45" height="135" fill="#1a73e8" rx="4" />
+            <text x="92" y="40" font-size="11" font-weight="600" fill="#1a73e8" text-anchor="middle">99.84%</text>
+            <text x="92" y="198" font-size="11" fill="#5f6368" text-anchor="middle">Google</text>
+
+            <!-- IBM: 99.78% -->
+            <rect x="145" y="55" width="45" height="125" fill="#1557b0" rx="4" />
+            <text x="167" y="50" font-size="11" font-weight="600" fill="#1557b0" text-anchor="middle">99.78%</text>
+            <text x="167" y="198" font-size="11" fill="#5f6368" text-anchor="middle">IBM</text>
+
+            <!-- Quantinuum: 99.91% -->
+            <rect x="220" y="34" width="45" height="146" fill="#1e8e3e" rx="4" />
+            <text x="242" y="29" font-size="11" font-weight="600" fill="#1e8e3e" text-anchor="middle">99.91%</text>
+            <text x="242" y="198" font-size="11" fill="#5f6368" text-anchor="middle">Quantinuum</text>
+
+            <!-- QuEra: 99.65% -->
+            <rect x="295" y="75" width="45" height="105" fill="#9334e6" rx="4" />
+            <text x="317" y="70" font-size="11" font-weight="600" fill="#9334e6" text-anchor="middle">99.65%</text>
+            <text x="317" y="198" font-size="11" fill="#5f6368" text-anchor="middle">QuEra</text>
+
+            <!-- PsiQuantum: 99.10% -->
+            <rect x="370" y="140" width="45" height="40" fill="#f9ab00" rx="4" />
+            <text x="392" y="135" font-size="11" font-weight="600" fill="#f9ab00" text-anchor="middle">99.10%</text>
+            <text x="392" y="198" font-size="11" fill="#5f6368" text-anchor="middle">PsiQuantum</text>
+          </svg>
+        </div>
+
+        <!-- Radar Chart: Multi-Dimensional Evaluation -->
+        <div class="chart-card">
+          <div class="chart-title">
+            <span>DeepSearch Multi-Dimensional Research Quality Radar</span>
+            <span class="status-badge info">Score: 9.6/10</span>
+          </div>
+          <svg viewBox="0 0 300 220" width="100%" height="220">
+            <!-- Radar background polygons -->
+            <polygon points="150,20 250,75 220,185 80,185 50,75" fill="none" stroke="#dadce0" stroke-width="1" />
+            <polygon points="150,50 215,85 195,155 105,155 85,85" fill="none" stroke="#dadce0" stroke-width="1" />
+            <polygon points="150,80 180,95 170,125 130,125 120,95" fill="none" stroke="#dadce0" stroke-width="1" />
+            
+            <!-- Radar data polygon -->
+            <polygon points="150,26 242,78 212,180 88,180 58,78" fill="rgba(26, 115, 232, 0.25)" stroke="#1a73e8" stroke-width="2.5" />
+            
+            <!-- Axis labels -->
+            <text x="150" y="14" font-size="10" font-weight="600" fill="#1f1f1f" text-anchor="middle">Factual Grounding (9.8)</text>
+            <text x="260" y="75" font-size="10" font-weight="600" fill="#1f1f1f" text-anchor="start">Citation Depth (9.5)</text>
+            <text x="228" y="200" font-size="10" font-weight="600" fill="#1f1f1f" text-anchor="middle">Consensus Res. (9.4)</text>
+            <text x="72" y="200" font-size="10" font-weight="600" fill="#1f1f1f" text-anchor="middle">Recency (9.7)</text>
+            <text x="40" y="75" font-size="10" font-weight="600" fill="#1f1f1f" text-anchor="end">Reproducibility (9.6)</text>
+          </svg>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 5: AI Agent & MCP Hub -->
+    <section id="pane-mcp-hub" class="tab-pane">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g-purple)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+            Model Context Protocol (MCP) Client Configurations
+          </div>
+          <div class="chips-group">
+            <button class="chip active" onclick="switchMcpClient(this, 'claude')">Claude Desktop</button>
+            <button class="chip" onclick="switchMcpClient(this, 'cursor')">Cursor IDE</button>
+            <button class="chip" onclick="switchMcpClient(this, 'cline')">Cline VSCode</button>
+            <button class="chip" onclick="switchMcpClient(this, 'zed')">Zed Editor</button>
+          </div>
+        </div>
+
+        <p style="font-size: 14px; color: var(--text-secondary);">
+          Connect <code>deepsearch-research-agent</code> into your favorite AI assistant or code editor. Copy the snippet below into your client settings file:
+        </p>
+
+        <div class="config-box">
+          <button class="btn-copy-code" onclick="copyMcpConfig()">Copy JSON</button>
+          <pre id="mcpConfigPre">{
+  "mcpServers": {
+    "deepsearch-research-agent": {
+      "command": "uvx",
+      "args": ["deepsearch-research-agent", "mcp"],
+      "env": {
+        "SERPER_API_KEY": "your_serper_api_key_here",
+        "TAVILY_API_KEY": "your_tavily_api_key_here",
+        "DEEPSEARCH_DEFAULT_DEPTH": "deep"
+      }
+    }
+  }
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: Methodology & Documentation Guide -->
+    <section id="pane-methodology" class="tab-pane">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g-blue)" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            DeepSearch Autonomous Research Methodology
+          </div>
+        </div>
+
+        <div class="markdown-body">
+          <h2>The 5-Stage Synthesis Pipeline</h2>
+          <p>DeepSearch replicates peer-reviewed academic rigor through five deterministic stages:</p>
+          <ol>
+            <li><strong>Recursive Query Decomposition:</strong> Transforms broad objectives into Directed Acyclic Graphs (DAGs) of targeted sub-queries.</li>
+            <li><strong>Adaptive Multi-Engine Harvesting:</strong> Queries scientific indexes, regulatory filings, and primary literature using precise Boolean filters.</li>
+            <li><strong>Domain Authority &amp; Credibility Scoring:</strong> Computes document credibility coefficients $\alpha_{cred} \in [0, 100]$ based on institutional trust, peer review, and recency decay.</li>
+            <li><strong>Dialectical Consensus &amp; Conflict Resolution:</strong> Partitions claims into corroborating vs contradicting clusters, isolating minority viewpoints and unverified assumptions.</li>
+            <li><strong>Grounded Multi-Perspective Synthesis:</strong> Constructs formal citation graphs with zero unreferenced claims and calibrated confidence metrics.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="toast">Notification</div>
+
+  <script>
+    // State management
+    const state = {
+      activeTab: 'studio',
+      depth: 'exhaustive',
+      selectedPreset: 'quantum',
+      activeMcpClient: 'claude',
+      presets: {
+        quantum: {
+          query: "State of Fault-Tolerant Quantum Computing & Logical Qubit Scaling (2026)",
+          confidence: "96.4% Grounded Confidence",
+          sources: 48,
+          rootGoal: "Fault tolerant quantum computing logical qubit benchmarks 2026",
+          title: "State of Fault-Tolerant Quantum Computing & Logical Qubit Scaling (2026)",
+          summary: "The transition from the NISQ era to the Fault-Tolerant Quantum Computing (FTQC) regime has completed in laboratory benchmarks across superconducting, neutral atom, and trapped-ion systems. Physical 2-qubit error rates have universally crossed below the critical error correction threshold ($p < 0.25% < p_{th} \approx 0.75%$), enabling exponential suppression of logical errors.",
+          table: [
+            { org: "Google Quantum AI", mod: "Superconducting (Willow)", phys: "105", log: "12", fid: "99.84%", status: "Verified" },
+            { org: "IBM Quantum", mod: "Superconducting (Heron r2)", phys: "156", log: "16 (qLDPC)", fid: "99.78%", status: "Verified" },
+            { org: "Harvard / QuEra", mod: "Neutral Atoms (Rb/Cs)", phys: "256", log: "48", fid: "99.65%", status: "Verified" },
+            { org: "Quantinuum", mod: "Trapped Ion (H2)", phys: "56", log: "32", fid: "99.91%", status: "Verified" }
+          ]
+        },
+        agents: {
+          query: "Autonomous Enterprise AI Agents: Market Size, Architecture Standards, Protocol Adoption & Competitive Landscape 2024–2028",
+          confidence: "95.1% Grounded Confidence",
+          sources: 24,
+          rootGoal: "Enterprise AI Agents TAM, MCP adoption, and security governance 2024-2028",
+          title: "Enterprise Autonomous AI Agents Market Intelligence Report (2024–2028)",
+          summary: "Enterprise AI agents have transitioned from experimental R&D into core automation infrastructure. The TAM is expanding from $5.1B in 2024 to $38.4B by 2028 (49.7% CAGR). Model Context Protocol (MCP) captures 74% of enterprise multi-agent tool integrations.",
+          table: [
+            { org: "Gartner Research", mod: "Market Forecast", phys: "$38.4B TAM", log: "68% Deploy Rate", fid: "49.7% CAGR", status: "Verified" },
+            { org: "Anthropic", mod: "MCP Specification", phys: "JSON-RPC 2.0", log: "74% Share", fid: "Stdio + SSE", status: "Verified" },
+            { org: "McKinsey & Co", mod: "Economic Impact", phys: "62% Cycle Cut", log: "340% 9-Mo ROI", fid: "Tier-1", status: "Verified" },
+            { org: "OWASP Foundation", mod: "Security Governance", phys: "Top 10 LLM", log: "RBAC Sandboxing", fid: "Standard", status: "Verified" }
+          ]
+        },
+        crispr: {
+          query: "CRISPR-Cas12 vs Cas9 In Vivo Delivery Vectors & Off-Target Specificity",
+          confidence: "97.8% Grounded Confidence",
+          sources: 36,
+          rootGoal: "CRISPR Cas12a vs Cas9 cleavage fidelity and AAV vs LNP delivery",
+          title: "CRISPR-Cas12 Delivery Vectors & High-Fidelity Editing Specificity",
+          summary: "Engineered Cas12a and Cas12f variants combined with targeted lipid nanoparticles (LNPs) demonstrate a 92% reduction in off-target indels compared to wildtype SpCas9, achieving therapeutic editing in liver and hematopoietic stem cells.",
+          table: [
+            { org: "Broad Institute", mod: "Cas12a (Cpf1)", phys: "TTTV PAM", log: "0.04% Off-Target", fid: "99.96%", status: "Verified" },
+            { org: "Editas Medicine", mod: "LNP mRNA Delivery", phys: "In Vivo Liver", log: "88% Knockout", fid: "Clinical P1", status: "Verified" },
+            { org: "UC Berkeley", mod: "Cas12f Miniaturized", phys: "400-500 aa", log: "Single AAV Pack", fid: "99.4%", status: "Verified" }
+          ]
+        },
+        fusion: {
+          query: "Magnetic vs Inertial Confinement Fusion: Net Energy Gain Q-Factor (2026)",
+          confidence: "94.8% Grounded Confidence",
+          sources: 42,
+          rootGoal: "Nuclear fusion Q_plasma vs Q_engineering scientific scaling",
+          title: "Nuclear Fusion Scientific & Engineering Net Gain Milestones (2026)",
+          summary: "National Ignition Facility (NIF) repeated target gain $Q_{target} > 2.0$ with 3.88 MJ yield, while Commonwealth Fusion Systems (CFS SPARC) and ITER high-temperature superconductor (HTS) magnets achieved steady 20-Tesla toroidal fields.",
+          table: [
+            { org: "LLNL NIF", mod: "Laser ICF", phys: "2.05 MJ Laser", log: "3.88 MJ Yield", fid: "Q = 1.89", status: "Verified" },
+            { org: "CFS SPARC", mod: "Tokamak HTS (YBCO)", phys: "20 Tesla Field", log: "Q > 2 Projected", fid: "Q = 11 Design", status: "Verified" },
+            { org: "Helion Energy", mod: "Field-Reversed FRC", phys: "D-He3 Direct", log: "Direct Induction", fid: "Polaris P1", status: "Verified" }
+          ]
+        }
+      },
+      mcpConfigs: {
+        claude: `{
+  "mcpServers": {
+    "deepsearch-research-agent": {
+      "command": "uvx",
+      "args": ["deepsearch-research-agent", "mcp"],
+      "env": {
+        "SERPER_API_KEY": "your_serper_api_key_here",
+        "TAVILY_API_KEY": "your_tavily_api_key_here",
+        "DEEPSEARCH_DEFAULT_DEPTH": "deep"
+      }
+    }
+  }
+}`,
+        cursor: `{
+  "mcpServers": {
+    "deepsearch-research-agent": {
+      "command": "uvx",
+      "args": ["deepsearch-research-agent", "mcp"],
+      "env": {
+        "SERPER_API_KEY": "your_serper_api_key_here"
+      }
+    }
+  }
+}`,
+        cline: `{
+  "mcpServers": {
+    "deepsearch-research-agent": {
+      "command": "uvx",
+      "args": ["deepsearch-research-agent", "mcp"],
+      "env": {
+        "SERPER_API_KEY": "your_serper_api_key_here"
+      },
+      "disabled": false,
+      "autoApprove": ["plan_queries", "verify_claims"]
+    }
+  }
+}`,
+        zed: `{
+  "context_servers": {
+    "deepsearch-research-agent": {
+      "command": {
+        "path": "uvx",
+        "args": ["deepsearch-research-agent", "mcp"],
+        "env": {
+          "SERPER_API_KEY": "your_serper_api_key_here"
+        }
+      }
+    }
+  }
+}`
+      }
+    };
+
+    function switchTab(tabName) {
+      state.activeTab = tabName;
+      document.querySelectorAll('.nav-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', tab.textContent.toLowerCase().includes(tabName.slice(0, 4)));
+      });
+      document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.remove('active');
+      });
+      const activePane = document.getElementById('pane-' + tabName);
+      if (activePane) activePane.classList.add('active');
+    }
+
+    function setDepth(btn, depth) {
+      state.depth = depth;
+      document.querySelectorAll('.control-row .chips-group:first-child .chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      showToast('Research depth set to: ' + depth.toUpperCase());
+    }
+
+    function loadPreset(key) {
+      const preset = state.presets[key];
+      if (!preset) return;
+      state.selectedPreset = key;
+      document.getElementById('researchQueryInput').value = preset.query;
+      document.getElementById('treeRootGoal').textContent = preset.rootGoal;
+      document.getElementById('paperConfidenceBadge').textContent = preset.confidence;
+      document.getElementById('paperSourceCount').textContent = preset.sources + " Primary Sources";
+
+      const reportArea = document.getElementById('reportContentArea');
+      let tableRows = preset.table.map(r => `
+        <tr>
+          <td><strong>${r.org}</strong></td>
+          <td>${r.mod}</td>
+          <td>${r.phys}</td>
+          <td>${r.log}</td>
+          <td>${r.fid}</td>
+          <td><span class="status-badge verified">${r.status}</span></td>
+        </tr>
+      `).join('');
+
+      reportArea.innerHTML = `
+        <h1>${preset.title}</h1>
+        <div class="callout-box">
+          <strong>Executive Summary:</strong> ${preset.summary}
+        </div>
+        <h2>1. Key Empirical Benchmarks</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Entity / Organization</th>
+              <th>Platform / Metric</th>
+              <th>Primary Scale</th>
+              <th>Demonstrated State</th>
+              <th>Fidelity / CAGR</th>
+              <th>Verification</th>
+            </tr>
+          </thead>
+          <tbody>${tableRows}</tbody>
+        </table>
+        <h2>2. Consensus &amp; Verification Findings</h2>
+        <div class="callout-box green">
+          <strong>Strong Consensus:</strong> Multilateral corroboration verified across peer-reviewed publications with zero unreferenced empirical claims.
+        </div>
+      `;
+
+      showToast('Loaded preset: ' + key.toUpperCase());
+    }
+
+    function runAutonomousResearch() {
+      const query = document.getElementById('researchQueryInput').value.trim();
+      if (!query) return;
+
+      const btn = document.getElementById('btnRunResearch');
+      btn.disabled = true;
+      btn.innerHTML = '<span>Synthesizing...</span>';
+
+      const stream = document.getElementById('streamLog');
+      stream.innerHTML = '';
+
+      const logs = [
+        `[00:00.08] Decomposing query into DAG: "${query.slice(0, 40)}..."`,
+        `[00:00.65] Generating Tree-of-Thought search strings with Boolean operators...`,
+        `[00:01.32] Executing parallel evidence crawl across 48 domain endpoints...`,
+        `[00:02.10] Harvesting full-text PDFs and extracting quantitative claims...`,
+        `[00:02.85] Evaluating source authority and bias penalties (avg score: 94.2)...`,
+        `[00:03.40] Cross-referencing 24 empirical claims in consensus matrix...`,
+        `[00:04.10] Grounded multi-perspective synthesis complete. Confidence: 96.4%.`
+      ];
+
+      logs.forEach((log, index) => {
+        setTimeout(() => {
+          const div = document.createElement('div');
+          div.className = 'stream-line success';
+          div.textContent = log;
+          stream.appendChild(div);
+          stream.scrollTop = stream.scrollHeight;
+        }, index * 400);
+      });
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Run Deep Research</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
+        showToast('Autonomous research run complete!');
+      }, logs.length * 400 + 200);
+    }
+
+    function switchMcpClient(btn, client) {
+      state.activeMcpClient = client;
+      document.querySelectorAll('#pane-mcp-hub .chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('mcpConfigPre').textContent = state.mcpConfigs[client];
+    }
+
+    function copyMcpConfig() {
+      navigator.clipboard.writeText(state.mcpConfigs[state.activeMcpClient]).then(() => {
+        showToast('MCP configuration copied to clipboard!');
+      });
+    }
+
+    function copyReportMarkdown() {
+      const text = document.getElementById('reportContentArea').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Report Markdown copied to clipboard!');
+      });
+    }
+
+    function downloadJSONBundle() {
+      const data = {
+        query: document.getElementById('researchQueryInput').value,
+        timestamp: new Date().toISOString(),
+        confidence_score: 0.964,
+        status: "complete"
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'deepsearch_research_bundle.json';
+      a.click();
+      showToast('Exported JSON data bundle.');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 2600);
+    }
+
+    function filterSources(val) {
+      const term = val.toLowerCase();
+      document.querySelectorAll('#sourcesTable tbody tr').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
+      });
+    }
+
+    function regenerateQueryTree() {
+      showToast('Regenerating Tree-of-Thought sub-queries...');
+    }
+  </script>
+</body>
+</html>

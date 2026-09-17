@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deepsearch-research-agent"
+version = "0.1.0"
+description = "Autonomous Multi-Perspective Deep Research & Verification Agent (Zero External Dependencies)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "DeepSearch Research Team", email = "dev@deepsearch-agent.org" }
+]
+keywords = [
+    "deepsearch",
+    "research",
+    "agent",
+    "mcp",
+    "model-context-protocol",
+    "information-retrieval",
+    "fact-checking",
+    "corroboration",
+    "ai-agent",
+    "synthesis"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0"
+]
+
+[project.scripts]
+deepsearch = "deepsearch_research_agent.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/deepsearch-agent/deepsearch-research-agent"
+Documentation = "https://github.com/deepsearch-agent/deepsearch-research-agent#readme"
+Repository = "https://github.com/deepsearch-agent/deepsearch-research-agent.git"
+Issues = "https://github.com/deepsearch-agent/deepsearch-research-agent/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra -q"

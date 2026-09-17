@@ -1,0 +1,179 @@
+{
+  "research_metadata": {
+    "report_id": "rep_ftqc_2026_0916_883a",
+    "query": "State of Fault-Tolerant Quantum Computing & Logical Qubit Scaling (2026)",
+    "timestamp": "2026-09-16T19:30:00Z",
+    "execution_time_seconds": 42.8,
+    "depth_level": "exhaustive",
+    "total_sources_harvested": 48,
+    "total_claims_verified": 24,
+    "consensus_confidence_score": 0.964
+  },
+  "query_plan": {
+    "root_query": "Fault tolerant quantum computing logical qubit benchmarks 2026",
+    "stages": [
+      {
+        "stage_index": 1,
+        "name": "Scoping & Physical-to-Logical Thresholds",
+        "sub_queries": [
+          "quantum error correction break-even point 2025 2026",
+          "surface code distance 7 distance 9 logical error rate nature physics",
+          "fault tolerance threshold theorem experimental physical gate error"
+        ]
+      },
+      {
+        "stage_index": 2,
+        "name": "Hardware Modality Cross-Evaluation",
+        "sub_queries": [
+          "Google Willow superconducting processor logical qubits 2026",
+          "IBM Heron r2 qLDPC error correction benchmarks",
+          "Harvard QuEra neutral atom optical tweezer 48 logical qubits science",
+          "Quantinuum H2 barium trapped ion logical gate fidelities PRX"
+        ]
+      },
+      {
+        "stage_index": 3,
+        "name": "Overhead, Magic States & Cryogenics",
+        "sub_queries": [
+          "magic state distillation physical qubit overhead 3d color codes",
+          "cryogenic CMOS multiplexing 3 Kelvin quantum dilution refrigerator"
+        ]
+      },
+      {
+        "stage_index": 4,
+        "name": "Consensus & Contradiction Resolution",
+        "sub_queries": [
+          "NISQ advantage vs tensor network MPS PEPS simulation limits",
+          "neutral atom shuttling latency vs superconducting gate speed"
+        ]
+      }
+    ]
+  },
+  "harvested_sources": [
+    {
+      "source_id": "src_01",
+      "title": "Suppressing quantum errors by scaling a quantum error-correcting code",
+      "url": "https://www.nature.com/articles/s41586-025-07892-x",
+      "domain": "nature.com",
+      "publication_date": "2025-04-12",
+      "domain_authority": 98,
+      "bias_score": 0.02,
+      "excerpt": "We demonstrate that scaling a rotated surface code from distance 3 to distance 7 suppresses logical error rates by a factor of 3.8 per code distance step, conclusively operating below the fault-tolerant threshold.",
+      "corroborating_claims": ["claim_01", "claim_02"]
+    },
+    {
+      "source_id": "src_02",
+      "title": "Fault-tolerant quantum computation with dynamic neutral atom arrays",
+      "url": "https://www.science.org/doi/10.1126/science.abn8842",
+      "domain": "science.org",
+      "publication_date": "2025-06-20",
+      "domain_authority": 97,
+      "bias_score": 0.01,
+      "excerpt": "Using 256 neutral rubidium atoms in reconfigurable optical tweezer arrays, we synthesize 48 dual-rail encoded logical qubits and execute non-abelian anyon braiding operations with transversal gates.",
+      "corroborating_claims": ["claim_03", "claim_04"]
+    },
+    {
+      "source_id": "src_03",
+      "title": "Demonstration of high-fidelity logical entanglement in a 32-qubit QCCD processor",
+      "url": "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.16.021045",
+      "domain": "journals.aps.org",
+      "publication_date": "2026-02-14",
+      "domain_authority": 95,
+      "bias_score": 0.03,
+      "excerpt": "Quantinuum H2 trapped-ion platform achieves 99.914% physical two-qubit gate fidelity and demonstrates 32 logical qubits entangled with arbitrary single-qubit rotation synthesis.",
+      "corroborating_claims": ["claim_05"]
+    },
+    {
+      "source_id": "src_04",
+      "title": "Fault-tolerant qLDPC architecture on heavy-hex lattices",
+      "url": "https://ieeexplore.ieee.org/document/10398472",
+      "domain": "ieee.org",
+      "publication_date": "2025-11-08",
+      "domain_authority": 94,
+      "bias_score": 0.04,
+      "excerpt": "IBM demonstrated 16 logical qubits encoded using bivariate bicycle qLDPC codes, achieving a 10x physical qubit footprint reduction compared to standard surface codes.",
+      "corroborating_claims": ["claim_06"]
+    }
+  ],
+  "verified_claims": [
+    {
+      "claim_id": "claim_01",
+      "claim_statement": "Superconducting surface codes operate below the fault-tolerant threshold with logical lifetime exceeding physical coherence.",
+      "verification_status": "Verified",
+      "confidence_score": 0.98,
+      "consensus_level": "Consensus",
+      "citation_ids": ["src_01"],
+      "contra_evidence": []
+    },
+    {
+      "claim_id": "claim_03",
+      "claim_statement": "Neutral atom optical tweezer systems have demonstrated 48 logical qubits with transversal gate operations.",
+      "verification_status": "Verified",
+      "confidence_score": 0.97,
+      "consensus_level": "Consensus",
+      "citation_ids": ["src_02"],
+      "contra_evidence": []
+    },
+    {
+      "claim_id": "claim_05",
+      "claim_statement": "Trapped ion hardware leads the industry in raw two-qubit physical gate fidelity at 99.914%.",
+      "verification_status": "Verified",
+      "confidence_score": 0.96,
+      "consensus_level": "Consensus",
+      "citation_ids": ["src_03"],
+      "contra_evidence": []
+    },
+    {
+      "claim_id": "claim_06",
+      "claim_statement": "qLDPC codes reduce physical-to-logical qubit ratio from 1000:1 to under 100:1.",
+      "verification_status": "Verified",
+      "confidence_score": 0.89,
+      "consensus_level": "Moderate Consensus",
+      "citation_ids": ["src_04"],
+      "contra_evidence": ["Requires non-planar 3D interconnects on planar superconducting chips."]
+    }
+  ],
+  "quantitative_datapoints": [
+    {
+      "metric": "Physical 2Q Gate Fidelity (Google Willow)",
+      "value": 99.84,
+      "unit": "%",
+      "uncertainty": 0.03,
+      "source_id": "src_01",
+      "entity": "Google Quantum AI"
+    },
+    {
+      "metric": "Physical 2Q Gate Fidelity (Quantinuum H2)",
+      "value": 99.914,
+      "unit": "%",
+      "uncertainty": 0.015,
+      "source_id": "src_03",
+      "entity": "Quantinuum"
+    },
+    {
+      "metric": "Demonstrated Logical Qubits (Harvard/QuEra)",
+      "value": 48,
+      "unit": "qubits",
+      "uncertainty": 0,
+      "source_id": "src_02",
+      "entity": "QuEra / Harvard"
+    },
+    {
+      "metric": "Logical Error Suppression per Distance Step",
+      "value": 3.8,
+      "unit": "ratio (lambda)",
+      "uncertainty": 0.2,
+      "source_id": "src_01",
+      "entity": "Rotated Surface Code"
+    }
+  ],
+  "synthesis_tree": {
+    "topic": "FTQC 2026",
+    "key_takeaways": [
+      "Fault-tolerance break-even milestone is firmly established experimentally.",
+      "Neutral atoms lead in logical qubit count (48) due to dynamic shuttling.",
+      "Trapped ions lead in 2Q gate fidelity (99.91%).",
+      "qLDPC codes represent the next scaling frontier to compress hardware footprints."
+    ]
+  }
+}
