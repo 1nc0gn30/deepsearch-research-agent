@@ -275,6 +275,73 @@ def cmd_corroborate(args: argparse.Namespace, c: Colors) -> int:
         return 1
 
 
+def cmd_provenance(args: argparse.Namespace, c: Colors) -> int:
+    """Analyze research evidence provenance, detect circular citations, and export SVG graph."""
+    from deepsearch_research_agent.evidence_graph import EvidenceGraph, build_evidence_graph_from_synthesis
+
+    graph = EvidenceGraph()
+    if args.sources:
+        try:
+            with open(args.sources, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, dict) and ("insights" in data or "citations" in data):
+                graph = build_evidence_graph_from_synthesis(data)
+            elif isinstance(data, dict) and "nodes" in data:
+                graph = EvidenceGraph.from_dict(data)
+            elif isinstance(data, list):
+                for idx, item in enumerate(data, 1):
+                    graph.add_node(f"source_{idx}", node_type="primary_source", label=str(item)[:30])
+        except Exception as e:
+            print(f"{c.red('Error reading sources file:')} {e}", file=sys.stderr)
+            return 1
+    else:
+        # Default demo evidence graph
+        graph.add_node("primary_doc_1", node_type="primary_source", label="Nature Paper 2024", authority_score=95.0)
+        graph.add_node("claim_a", node_type="claim", label="Energy Density 450Wh/kg")
+        graph.add_node("claim_b", node_type="derived_conclusion", label="Next-Gen Battery Viability")
+        graph.add_edge("primary_doc_1", "claim_a", relation="supports")
+        graph.add_edge("claim_a", "claim_b", relation="derives_from")
+
+    graph.compute_eigenvector_authority()
+    cycles = graph.detect_circular_citations()
+
+    if args.export_svg:
+        svg_content = graph.generate_svg_graph()
+        try:
+            with open(args.export_svg, "w", encoding="utf-8") as f:
+                f.write(svg_content)
+            print(f"{c.green('✓')} SVG Evidence Graph saved to {args.export_svg}")
+        except Exception as e:
+            print(f"{c.red('Error writing SVG:')} {e}", file=sys.stderr)
+            return 1
+
+    if args.json:
+        out = graph.to_dict()
+        if args.trace:
+            out["trace"] = graph.trace_provenance(args.trace).to_dict()
+        print(json.dumps(out, indent=2))
+        return 0
+
+    print(f"\n{c.bold(c.blue('=== DeepSearch Evidence Provenance & Citation Audit ==='))}")
+    print(f"  Total Nodes: {len(graph.nodes)} | Total Directed Edges: {len(graph.edges)}")
+    if cycles:
+        print(f"  {c.red('⚠️  Circular Cycles Detected:')} {len(cycles)}")
+        for cyc in cycles:
+            print(f"    {c.yellow('•')} [{cyc.severity.upper()}] {cyc.explanation}")
+    else:
+        print(f"  {c.green('✓')} Citation Network: Verified DAG (Zero circular reporting)")
+
+    if args.trace:
+        tr = graph.trace_provenance(args.trace)
+        print(f"\n{c.bold(f'Provenance Trace for [{args.trace}]:')}")
+        print(f"  Grounded: {c.green('YES') if tr.is_grounded else c.red('NO')}")
+        print(f"  Max Lineage Depth: {tr.max_depth}")
+        print(f"  Root Sources: {len(tr.root_sources)}")
+
+    print(f"\n{c.dim('Tip: Use --export-svg <path.svg> to view the full network visual.')}\n")
+    return 0
+
+
 def cmd_serve(args: argparse.Namespace, c: Colors) -> int:
     """Start Deep Research Studio Web UI (design influenced by Material 3)."""
     host = args.host
@@ -523,6 +590,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_corroborate.add_argument("--topic", help="Contextual topic")
     p_corroborate.add_argument("--json", action="store_true", help="Output raw JSON analysis")
 
+    # provenance / graph
+    p_provenance = subparsers.add_parser("provenance", aliases=["graph"], parents=[base_subparser], help="Analyze evidence provenance and detect circular citations")
+    p_provenance.add_argument("--sources", help="Path to JSON file containing sources or synthesis result")
+    p_provenance.add_argument("--trace", help="Target node ID to trace provenance ancestry")
+    p_provenance.add_argument("--export-svg", help="Save Material 3 network visualization to SVG file")
+    p_provenance.add_argument("--json", action="store_true", help="Output raw JSON analysis")
+
     # serve
     p_serve = subparsers.add_parser("serve", parents=[base_subparser], help="Start Deep Research Studio Web UI (design influenced by Material 3)")
     p_serve.add_argument("--host", default="0.0.0.0", help="Host interface (default: 0.0.0.0)")
@@ -577,6 +651,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         return cmd_fetch(args, c)
     elif args.command == "corroborate":
         return cmd_corroborate(args, c)
+    elif args.command in ("provenance", "graph"):
+        return cmd_provenance(args, c)
     elif args.command == "serve":
         return cmd_serve(args, c)
     elif args.command == "mcp":

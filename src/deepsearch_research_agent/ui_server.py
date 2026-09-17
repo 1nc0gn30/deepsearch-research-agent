@@ -395,6 +395,13 @@ class DeepSearchRequestHandler(BaseHTTPRequestHandler):
             })
             return
 
+        elif path in ("/api/evidence-graph", "/api/provenance"):
+            from deepsearch_research_agent.mcp_server import deepsearch_evidence_graph
+            include_svg = query_params.get("svg", ["false"])[0].lower() == "true"
+            res = deepsearch_evidence_graph(include_svg=include_svg)
+            self._send_json(res)
+            return
+
         # Static File Routing
         self._serve_static_or_ui(path)
 
@@ -458,6 +465,17 @@ class DeepSearchRequestHandler(BaseHTTPRequestHandler):
                     self._send_error_json("Field 'report' is required", status=400)
                     return
                 res = deepsearch_export_report(report_data=report_data, format=out_format, output_path=output_path)
+                self._send_json(res)
+
+            elif path in ("/api/evidence-graph", "/api/provenance"):
+                from deepsearch_research_agent.mcp_server import deepsearch_evidence_graph
+                res = deepsearch_evidence_graph(
+                    nodes=body.get("nodes"),
+                    edges=body.get("edges"),
+                    synthesis_data=body.get("synthesis_data"),
+                    include_svg=bool(body.get("include_svg", False)),
+                    trace_target=body.get("trace_target"),
+                )
                 self._send_json(res)
 
             elif path == "/api/export-bundle":

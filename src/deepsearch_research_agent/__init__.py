@@ -53,6 +53,14 @@ from deepsearch_research_agent.contradiction_detector import (
     ContradictionReport,
     detect_contradictions,
 )
+from deepsearch_research_agent.evidence_graph import (
+    CircularCitationCycle,
+    EvidenceEdge,
+    EvidenceGraph,
+    EvidenceNode,
+    ProvenanceTrace,
+    build_evidence_graph_from_synthesis,
+)
 
 __version__ = "1.0.0"
 
@@ -100,4 +108,11 @@ __all__ = [
     "ContradictionRecord",
     "ContradictionReport",
     "detect_contradictions",
+    # evidence graph
+    "EvidenceNode",
+    "EvidenceEdge",
+    "CircularCitationCycle",
+    "ProvenanceTrace",
+    "EvidenceGraph",
+    "build_evidence_graph_from_synthesis",
 ]

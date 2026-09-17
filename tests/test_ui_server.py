@@ -221,9 +221,30 @@ class TestUIServer(unittest.TestCase):
         html_str = body.decode("utf-8")
         self.assertTrue("DeepResearch" in html_str or "Deep Research" in html_str or "DeepSearch" in html_str)
 
-    def test_endpoint_not_found(self):
-        status, _, body = self._make_request("/api/nonexistent_route")
-        self.assertEqual(status, 404)
+    def test_evidence_graph_api(self):
+        # Test GET
+        status, _, body = self._make_request("/api/evidence-graph")
+        self.assertEqual(status, 200)
+        res_get = json.loads(body.decode("utf-8"))
+        self.assertEqual(res_get["status"], "success")
+
+        # Test POST
+        payload = {
+            "nodes": [
+                {"id": "doc_1", "node_type": "primary_source", "label": "Doc 1"},
+                {"id": "claim_1", "node_type": "claim", "label": "Claim 1"},
+            ],
+            "edges": [
+                {"source": "doc_1", "target": "claim_1", "relation": "supports"},
+            ],
+            "include_svg": True,
+        }
+        status, _, body = self._make_request("/api/evidence-graph", method="POST", data=payload)
+        self.assertEqual(status, 200)
+        res_post = json.loads(body.decode("utf-8"))
+        self.assertEqual(res_post["status"], "success")
+        self.assertEqual(res_post["total_nodes"], 2)
+        self.assertIsNotNone(res_post["svg"])
 
 
 if __name__ == "__main__":

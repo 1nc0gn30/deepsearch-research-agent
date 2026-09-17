@@ -1060,10 +1060,80 @@ def deepsearch_get_diagnostics(include_network_check: bool = True) -> Dict[str, 
             "deepsearch_execute": "Autonomous multi-perspective deep research synthesis",
             "deepsearch_fetch": "Clean HTML/Markdown content extraction without headless browser overhead",
             "deepsearch_corroborate": "Multi-source cross-validation and consensus scoring",
+            "deepsearch_evidence_graph": "Evidence provenance graph, circular citation detection, and authority propagation",
             "deepsearch_export_report": "Export to Markdown, Material 3 HTML, and JSON formats",
             "deepsearch_get_diagnostics": "Full system readiness and environment diagnostics",
         },
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    }
+
+
+def deepsearch_evidence_graph(
+    nodes: Optional[List[Dict[str, Any]]] = None,
+    edges: Optional[List[Dict[str, Any]]] = None,
+    synthesis_data: Optional[Dict[str, Any]] = None,
+    include_svg: bool = False,
+    trace_target: Optional[str] = None,
+) -> Dict[str, Any]:
+    """
+    Analyze research citation network, detect circular reporting / echo chambers,
+    and compute TrustRank eigenvector authority across claims and primary sources.
+    """
+    from deepsearch_research_agent.evidence_graph import (
+        EvidenceGraph,
+        build_evidence_graph_from_synthesis,
+    )
+
+    if synthesis_data:
+        graph = build_evidence_graph_from_synthesis(synthesis_data)
+    else:
+        graph = EvidenceGraph()
+
+    if nodes:
+        for n in nodes:
+            graph.add_node(
+                node_or_id=n.get("node_id", n.get("id", "")),
+                node_type=n.get("node_type", "document"),
+                label=n.get("label", ""),
+                metadata=n.get("metadata", {}),
+                authority_score=float(n.get("authority_score", 1.0)),
+            )
+
+    if edges:
+        for e in edges:
+            graph.add_edge(
+                source_id=e.get("source_id", e.get("source", "")),
+                target_id=e.get("target_id", e.get("target", "")),
+                relation=e.get("relation", "cites"),
+                weight=float(e.get("weight", 1.0)),
+                evidence_snippet=e.get("evidence_snippet", ""),
+            )
+
+    authority_scores = graph.compute_eigenvector_authority()
+    cycles = graph.detect_circular_citations()
+    echo_chambers = graph.detect_echo_chambers()
+
+    trace_result = None
+    if trace_target:
+        trace_result = graph.trace_provenance(trace_target).to_dict()
+
+    svg_content = None
+    if include_svg:
+        svg_content = graph.generate_svg_graph()
+
+    audit_md = graph.export_audit_markdown()
+
+    return {
+        "status": "success",
+        "total_nodes": len(graph.nodes),
+        "total_edges": len(graph.edges),
+        "authority_scores": authority_scores,
+        "circular_cycles": [c.to_dict() for c in cycles],
+        "has_circular_reporting": len(cycles) > 0,
+        "echo_chambers": echo_chambers,
+        "provenance_trace": trace_result,
+        "audit_markdown": audit_md,
+        "svg": svg_content,
     }
 
 
@@ -1295,6 +1365,38 @@ class MCPServer:
                     },
                 },
             },
+            {
+                "name": "deepsearch_evidence_graph",
+                "description": "Construct directed evidence provenance graph, compute TrustRank eigenvector authority, detect circular reporting / echo chambers, and trace claim lineages.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "nodes": {
+                            "type": "array",
+                            "items": {"type": "object"},
+                            "description": "Optional explicit nodes list with id, node_type, label, metadata",
+                        },
+                        "edges": {
+                            "type": "array",
+                            "items": {"type": "object"},
+                            "description": "Optional explicit edges list with source_id, target_id, relation, weight",
+                        },
+                        "synthesis_data": {
+                            "type": "object",
+                            "description": "Optional synthesis result dictionary to auto-construct evidence graph",
+                        },
+                        "include_svg": {
+                            "type": "boolean",
+                            "description": "Whether to render standalone Material 3 SVG network visualization",
+                            "default": False,
+                        },
+                        "trace_target": {
+                            "type": "string",
+                            "description": "Optional target node ID to trace provenance ancestry back to primary sources",
+                        },
+                    },
+                },
+            },
         ]
 
     def call_tool(self, name: str, args: Dict[str, Any]) -> Dict[str, Any]:
@@ -1347,6 +1449,16 @@ class MCPServer:
         elif name == "deepsearch_get_diagnostics":
             res = deepsearch_get_diagnostics(
                 include_network_check=bool(args.get("include_network_check", True))
+            )
+            return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}], "isError": False}
+
+        elif name == "deepsearch_evidence_graph":
+            res = deepsearch_evidence_graph(
+                nodes=args.get("nodes"),
+                edges=args.get("edges"),
+                synthesis_data=args.get("synthesis_data"),
+                include_svg=bool(args.get("include_svg", False)),
+                trace_target=args.get("trace_target"),
             )
             return {"content": [{"type": "text", "text": json.dumps(res, indent=2)}], "isError": False}
 
