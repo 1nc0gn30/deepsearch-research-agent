@@ -2,7 +2,7 @@
 """
 Zero-Dependency Web UI Server & REST API for DeepSearch Research Agent.
 
-Serves Google Material 3 Deep Research Studio frontend and provides REST endpoints for
+Serves Deep Research Studio frontend (design influenced by Material 3) and provides REST endpoints for
 planning, deep research execution, content fetching, claim corroboration, report export,
 MCP configuration delivery, and ZIP research bundle generation.
 """
@@ -47,7 +47,7 @@ EMBEDDED_STUDIO_HTML = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DeepSearch Research Studio &bull; Google Material 3</title>
+  <title>Deep Research Studio &bull; Material 3</title>
   <style>
     :root {
       --md-sys-color-primary: #a8c7fa;

@@ -11,7 +11,7 @@ help:
 	@echo "  make test           Run unit test suite via pytest"
 	@echo "  make test-cov       Run test suite with coverage report"
 	@echo "  make lint           Check code compilation and syntax"
-	@echo "  make serve          Start Google Material 3 Deep Research Studio Web UI"
+	@echo "  make serve          Start Deep Research Studio Web UI (Material 3 influenced)"
 	@echo "  make mcp            Run stdio Model Context Protocol (MCP) server"
 	@echo "  make platform       Run multi-OS platform diagnostics"
 	@echo "  make clean          Clean build artifacts and cache directories"

@@ -247,7 +247,7 @@ class TestPublicStudioUi:
         assert "#9334e6" in content  # Google Purple
 
         # Branding
-        assert "Google Deep Research Studio" in content
+        assert "Deep Research Studio" in content
         assert "google-dots" in content
 
     def test_interactive_workspaces_and_tabs(self):

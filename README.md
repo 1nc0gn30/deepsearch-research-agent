@@ -1,7 +1,7 @@
 # 🔍 DeepSearch Autonomous Research Agent
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Google%20Deep%20Research-Studio%20v2.4-1a73e8?style=for-the-badge&logo=google&logoColor=white" alt="Google Deep Research Studio" />
+  <img src="https://img.shields.io/badge/Deep%20Research-Studio%20v2.4-1a73e8?style=for-the-badge&logoColor=white" alt="Deep Research Studio" />
   <img src="https://img.shields.io/badge/Model%20Context%20Protocol-MCP%20Server%20Ready-1e8e3e?style=for-the-badge" alt="MCP Server Ready" />
   <img src="https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-f9ab00?style=for-the-badge&logo=python&logoColor=white" alt="Python Versions" />
   <img src="https://img.shields.io/badge/License-Apache%202.0-d93025?style=for-the-badge" alt="Apache 2.0 License" />
@@ -20,7 +20,7 @@
 - ⚖️ **Dialectical Consensus & Contradiction Matrix**: Cross-references claims across dozens of sources, computing weighted agreement ratios and isolating contested assumptions.
 - 📐 **Calibrated Confidence Scoring**: Calculates grounded confidence metrics $C \in [0, 1]$ based on domain authority, recency decay, peer-review weight, and corroboration depth.
 - 🔌 **Native Model Context Protocol (MCP) Server**: Drop-in MCP integration for Claude Desktop, Cursor, Cline, Zed, and custom LLM runtimes.
-- 🖥️ **Google Deep Research Studio UI**: Built-in Google Material 3 web studio with live query branch visualizer, consensus matrix, interactive SVG metrics charts, and copy-ready client config hub.
+- 🖥️ **Deep Research Studio UI**: Built-in web studio (design influenced by Material 3) with live query branch visualizer, consensus matrix, interactive SVG metrics charts, and copy-ready client config hub.
 - 📦 **Multi-Format Export**: Generates peer-reviewed Markdown reports, interactive standalone HTML documents, and machine-readable JSON data bundles.
 
 ---
@@ -178,9 +178,9 @@ For full integration guides for **Cursor**, **Cline**, and **Zed**, see [docs/MC
 
 ---
 
-## 🖥️ Google Deep Research Studio Web UI
+## 🖥️ Deep Research Studio Web UI
 
-DeepSearch ships with an interactive, offline-ready **Google Material 3 Light Mode** studio located at [`public/index.html`](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/public/index.html).
+DeepSearch ships with an interactive, offline-ready web studio (design influenced by Google Material 3 tokens) located at [`public/index.html`](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/public/index.html).
 
 To launch the studio:
 ```bash

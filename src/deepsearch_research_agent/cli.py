@@ -276,7 +276,7 @@ def cmd_corroborate(args: argparse.Namespace, c: Colors) -> int:
 
 
 def cmd_serve(args: argparse.Namespace, c: Colors) -> int:
-    """Start Google Material 3 Deep Research Studio Web UI."""
+    """Start Deep Research Studio Web UI (design influenced by Material 3)."""
     host = args.host
     port = args.port
     open_browser = args.open
@@ -524,7 +524,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_corroborate.add_argument("--json", action="store_true", help="Output raw JSON analysis")
 
     # serve
-    p_serve = subparsers.add_parser("serve", parents=[base_subparser], help="Start Google Material 3 Deep Research Studio Web UI")
+    p_serve = subparsers.add_parser("serve", parents=[base_subparser], help="Start Deep Research Studio Web UI (design influenced by Material 3)")
     p_serve.add_argument("--host", default="0.0.0.0", help="Host interface (default: 0.0.0.0)")
     p_serve.add_argument("--port", type=int, default=8096, help="Port number (default: 8096)")
     p_serve.add_argument("--open", action="store_true", help="Open browser automatically")
