@@ -47,6 +47,12 @@ from deepsearch_research_agent.synthesizer import (
     SynthesisResult,
     TimelineEvent,
 )
+from deepsearch_research_agent.contradiction_detector import (
+    FactClaim,
+    ContradictionRecord,
+    ContradictionReport,
+    detect_contradictions,
+)
 
 __version__ = "1.0.0"
 
@@ -89,4 +95,9 @@ __all__ = [
     # report engine
     "ReportGenerator",
     "SVGChartGenerator",
+    # contradiction detector
+    "FactClaim",
+    "ContradictionRecord",
+    "ContradictionReport",
+    "detect_contradictions",
 ]
