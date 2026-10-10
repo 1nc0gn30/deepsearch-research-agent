@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+Crawl-delay: 0
+
+# Frontier AI Crawlers & AEO Discovery
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+Sitemap: https://deepsearch.nullai.tech/sitemap.xml

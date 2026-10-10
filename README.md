@@ -1,7 +1,8 @@
-# 🔍 DeepSearch Autonomous Research Agent
+# 🔍 DeepSearch Autonomous Research Agent & Studio
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Deep%20Research-Studio%20v2.4-1a73e8?style=for-the-badge&logoColor=white" alt="Deep Research Studio" />
+  <a href="https://deepsearch.nullai.tech"><img src="https://img.shields.io/badge/Live%20App-deepsearch.nullai.tech-1a73e8?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live App" /></a>
+  <img src="https://img.shields.io/badge/Founding%20Pass-$19%20Lifetime-14f195?style=for-the-badge" alt="Founding Pass" />
   <img src="https://img.shields.io/badge/Model%20Context%20Protocol-MCP%20Server%20Ready-1e8e3e?style=for-the-badge" alt="MCP Server Ready" />
   <img src="https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-f9ab00?style=for-the-badge&logo=python&logoColor=white" alt="Python Versions" />
   <img src="https://img.shields.io/badge/License-Apache%202.0-d93025?style=for-the-badge" alt="Apache 2.0 License" />
@@ -14,13 +15,15 @@
 
 **DeepSearch** is a state-of-the-art autonomous deep research agent and consensus synthesis engine. Designed to tackle open-ended, complex scientific, technological, and market intelligence questions, DeepSearch iteratively decomposes research objectives, executes multi-angle boolean search queries, harvests and verifies primary literature, resolves contradictory empirical claims, and outputs publication-grade synthesized reports with mathematical grounding scores and interactive visualizations.
 
+🚀 **Live Interactive Web App**: [https://deepsearch.nullai.tech](https://deepsearch.nullai.tech) — 100% in-browser client execution with zero cloud egress. Pro Lifetime access available for a one-time $19 founding member price via [Stripe](https://buy.stripe.com/7sI7sA8hM2X8eFG8ww) and Solana DePay.
+
 ### 🌟 Key Capabilities
 
 - 🌳 **Recursive Tree-of-Thought Query Decomposition**: Breaks down broad questions into multi-stage Directed Acyclic Graphs (DAGs) with automated Boolean operator crafting (`site:`, `filetype:pdf`, `intitle:`).
 - ⚖️ **Dialectical Consensus & Contradiction Matrix**: Cross-references claims across dozens of sources, computing weighted agreement ratios and isolating contested assumptions.
 - 📐 **Calibrated Confidence Scoring**: Calculates grounded confidence metrics $C \in [0, 1]$ based on domain authority, recency decay, peer-review weight, and corroboration depth.
 - 🔌 **Native Model Context Protocol (MCP) Server**: Drop-in MCP integration for Claude Desktop, Cursor, Cline, Zed, and custom LLM runtimes.
-- 🖥️ **Deep Research Studio UI**: Built-in web studio (design influenced by Material 3) with live query branch visualizer, consensus matrix, interactive SVG metrics charts, and copy-ready client config hub.
+- 🖥️ **Deep Research Studio UI**: Built-in web studio with live query branch visualizer, consensus matrix, interactive SVG metrics charts, and copy-ready client config hub.
 - 📦 **Multi-Format Export**: Generates peer-reviewed Markdown reports, interactive standalone HTML documents, and machine-readable JSON data bundles.
 
 ---
@@ -180,13 +183,13 @@ For full integration guides for **Cursor**, **Cline**, and **Zed**, see [docs/MC
 
 ## 🖥️ Deep Research Studio Web UI
 
-DeepSearch ships with an interactive, offline-ready web studio (design influenced by Google Material 3 tokens) located at [`public/index.html`](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/public/index.html).
+DeepSearch ships with an interactive, offline-ready web studio located at [`public/index.html`](public/index.html).
 
 To launch the studio:
 ```bash
 deepsearch studio --port 3000
 ```
-Or open [`public/index.html`](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/public/index.html) directly in any modern browser.
+Or open [`public/index.html`](public/index.html) directly in any modern browser.
 
 ### Studio Features:
 1. 🔍 **Deep Research Studio**: Live multi-stage query decomposition visualizer, citation stream, and Markdown preview.
@@ -200,17 +203,17 @@ Or open [`public/index.html`](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd9
 
 ## 📚 Documentation Directory
 
-- [Research Methodology & Synthesis Engine](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/docs/RESEARCH_METHODOLOGY.md)
-- [MCP Server Setup & Tool Specification](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/docs/MCP_GUIDE.md)
-- [Autonomous Query Planning & Search Operators](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/docs/QUERY_PLANNING_GUIDE.md)
+- [Research Methodology & Synthesis Engine](docs/RESEARCH_METHODOLOGY.md)
+- [MCP Server Setup & Tool Specification](docs/MCP_GUIDE.md)
+- [Autonomous Query Planning & Search Operators](docs/QUERY_PLANNING_GUIDE.md)
 
 ---
 
 ## 📁 Reference Examples
 
-- [Fault-Tolerant Quantum Computing Brief (2026)](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/examples/quantum-computing-brief/)
-- [Enterprise Autonomous AI Agents Market Intelligence](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/examples/market-intelligence-report/)
-- [MCP Client Configurations](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/examples/mcp-clients/)
+- [Fault-Tolerant Quantum Computing Brief (2026)](examples/quantum-computing-brief/)
+- [Enterprise Autonomous AI Agents Market Intelligence](examples/market-intelligence-report/)
+- [MCP Client Configurations](examples/mcp-clients/)
 
 ---
 
@@ -221,10 +224,12 @@ Run the test suite locally:
 PYTHONPATH=src pytest tests/ -v
 ```
 
-The repository includes a comprehensive 15-job CI matrix in [`.github/workflows/ci.yml`](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/.github/workflows/ci.yml) testing across Ubuntu, macOS, and Windows on Python 3.9, 3.10, 3.11, 3.12, and 3.13.
+The repository includes a comprehensive 15-job CI matrix in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) testing across Ubuntu, macOS, and Windows on Python 3.9, 3.10, 3.11, 3.12, and 3.13.
 
 ---
 
-## 📄 License
+## 📄 License & Attribution
 
-Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+Licensed under the [Apache License, Version 2.0](LICENSE).
+
+Engineered by Neal Frazier Tech ([@1nc0gn30](https://github.com/1nc0gn30)) • [NullAI Platform](https://nullai.tech)
