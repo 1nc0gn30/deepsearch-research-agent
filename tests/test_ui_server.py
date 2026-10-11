@@ -62,7 +62,7 @@ class TestUIServer(unittest.TestCase):
     def test_cors_preflight_options(self):
         status, headers, _ = self._make_request("/api/research", method="OPTIONS")
         self.assertEqual(status, 204)
-        self.assertEqual(headers.get("Access-Control-Allow-Origin"), "*")
+        self.assertEqual(headers.get("Access-Control-Allow-Origin"), "http://127.0.0.1")
         self.assertIn("POST", headers.get("Access-Control-Allow-Methods", ""))
 
     def test_get_health(self):

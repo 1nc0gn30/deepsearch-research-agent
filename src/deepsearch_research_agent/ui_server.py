@@ -320,13 +320,31 @@ EMBEDDED_STUDIO_HTML = """<!DOCTYPE html>
 # DeepSearch HTTP Request Handler
 # =====================================================================
 
+def _is_local_origin(origin) -> bool:
+    """True for no Origin (CLI/curl/same-origin GET) or a localhost origin."""
+    if not origin:
+        return True
+    from urllib.parse import urlparse
+    try:
+        u = urlparse(origin)
+    except Exception:
+        return False
+    return u.scheme in ("http", "https") and (u.hostname or "") in ("localhost", "127.0.0.1", "::1")
+
+
+def _cors_origin(handler) -> str:
+    """Echo the Origin only when it is local; never '*'."""
+    origin = handler.headers.get("Origin", "")
+    return origin if origin and _is_local_origin(origin) else "http://127.0.0.1"
+
+
 class DeepSearchRequestHandler(BaseHTTPRequestHandler):
     """HTTP Request Handler for DeepSearch Studio and REST APIs."""
 
     server_version = f"{SERVER_NAME}/{SERVER_VERSION}"
 
     def _set_cors_headers(self) -> None:
-        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Origin", _cors_origin(self))
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
 
@@ -407,6 +425,12 @@ class DeepSearchRequestHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         """Route POST requests for research, planning, fetching, and exporting."""
+
+        if not _is_local_origin(self.headers.get("Origin")):
+
+            self.send_error(403, "Cross-origin request blocked")
+
+            return
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
         body = self._read_json_body()
@@ -612,7 +636,7 @@ Generated: {report_data.get('generated_at', time.strftime('%Y-%m-%dT%H:%M:%SZ', 
 # =====================================================================
 
 def run_ui_server(
-    host: str = "0.0.0.0",
+    host: str = "127.0.0.1",
     port: int = 8096,
     open_browser: bool = False
 ) -> ThreadingHTTPServer:
