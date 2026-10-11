@@ -765,7 +765,8 @@
     .paywall-wrap {
       position: relative;
     }
-    .paywall-wrap.locked #reportContentArea {
+    .paywall-wrap.locked #reportContentArea,
+    .paywall-wrap.is-locked #reportContentArea {
       filter: blur(6px);
       user-select: none;
       pointer-events: none;
@@ -785,7 +786,8 @@
       border-radius: var(--radius-md);
       padding: 24px;
     }
-    .paywall-wrap.locked .paywall-overlay {
+    .paywall-wrap.locked .paywall-overlay,
+    .paywall-wrap.is-locked .paywall-overlay {
       display: flex;
     }
     .paywall-lock-card {
@@ -1028,16 +1030,16 @@
     </div>
     
     <div class="header-actions">
-      <div class="status-indicator" style="cursor: pointer;" onclick="openLicensePrompt()">
+      <div class="status-indicator" style="cursor: pointer;" onclick="openLicenseModal()">
         <span class="pulse-dot"></span>
         <span id="licenseBadge" class="license-badge" style="font-weight: 700; font-size: 11px; color: #ef4444;">⚡ FREE TIER</span>
       </div>
-      <button onclick="openProPaywallModal()" style="background: linear-gradient(135deg, #1a73e8, #9334e6); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">⭐ Upgrade $19</button>
+      <button onclick="openLicenseModal()" style="background: linear-gradient(135deg, #1a73e8, #9334e6); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">⭐ Upgrade $19</button>
     </div>
   </header>
 
   <!-- High-Converting Sales Funnel Banner -->
-  <div id="salesBanner" style="background: linear-gradient(90deg, rgba(26,115,232,0.15) 0%, rgba(20,241,149,0.15) 100%); border-bottom: 1px solid var(--outline); padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px; z-index: 99; position: relative;">
+  <div id="salesBanner" data-alias="salesBannerWrap" style="background: linear-gradient(90deg, rgba(26,115,232,0.15) 0%, rgba(20,241,149,0.15) 100%); border-bottom: 1px solid var(--outline); padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px; z-index: 99; position: relative;">
     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
       <span style="background: var(--g-red); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Founding Sale</span>
       <span style="font-weight: 600;">Sovereign Lifetime Pass:</span>
@@ -1054,7 +1056,7 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         <span>Pay with SOL</span>
       </button>
-      <button onclick="openLicensePrompt()" style="background: transparent; border: 1px solid var(--outline); color: var(--text-primary); padding: 6px 12px; min-height: 32px; border-radius: 6px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+      <button id="btn-paywall-key" onclick="openLicenseModal()" style="background: transparent; border: 1px solid var(--outline); color: var(--text-primary); padding: 6px 12px; min-height: 32px; border-radius: 6px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
         <span>Activate Key</span>
       </button>
     </div>
@@ -1193,7 +1195,7 @@
             </div>
 
             <!-- Dynamic Markdown Body with Frosted Glass Paywall Wrap -->
-            <div class="paywall-wrap locked" id="researchPaywallWrap">
+            <div class="paywall-wrap locked is-locked" id="researchPaywallWrap" data-alias="codePaywallWrap">
               <div class="markdown-body" id="reportContentArea">
                 <h1>State of Fault-Tolerant Quantum Computing &amp; Logical Qubit Scaling (2026)</h1>
                 <div class="callout-box">
@@ -1256,12 +1258,12 @@
               </div>
 
               <!-- Paywall Lock Overlay -->
-              <div class="paywall-overlay" id="researchOverlay">
+              <div class="paywall-overlay" id="researchOverlay" data-alias="paywallOverlay">
                 <div class="paywall-lock-card">
                   <div class="lock-icon">🔒</div>
                   <h3>Full Consensus Dossier &amp; Primary Citations Locked</h3>
                   <p>Upgrade to Sovereign Pro for full unredacted consensus dossiers, 48 primary source DOI citations, raw JSON exports, and unconstrained multi-source research agents.</p>
-                  <div class="paywall-actions">
+                  <div class="paywall-actions" style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                     <a href="https://buy.stripe.com/7sI7sA8hM2X8eFG8ww" target="_blank" class="btn-pay-stripe">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                       Card / Apple Pay ($19)
@@ -1269,6 +1271,9 @@
                     <button onclick="openDePayModal()" class="btn-pay-sol">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                       Pay with SOL
+                    </button>
+                    <button onclick="openLicenseModal()" style="background: transparent; border: 1px solid rgba(212,175,55,0.6); color: #F5E6AB; padding: 10px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer;">
+                      Enter Key
                     </button>
                   </div>
                   <div class="paywall-subtext">1-time payment • Lifetime access • Zero monthly subscription</div>
@@ -1753,7 +1758,10 @@
     }
 
     function isProUser() {
-      return localStorage.getItem('deepsearch_pro_licensed') === 'true' || localStorage.getItem('deepsearch-research-agent_pro_licensed') === 'true';
+      return localStorage.getItem('deepsearch_pro_licensed') === 'true' || 
+             localStorage.getItem('deepsearch-research-agent_pro_licensed') === 'true' ||
+             localStorage.getItem('sovereign_pro_licensed') === 'true' ||
+             localStorage.getItem('pro_licensed') === 'true';
     }
 
     function checkLicenseOnLoad() {
@@ -1761,55 +1769,93 @@
       if (params.get('licensed') === 'true' || params.get('pro') === 'true') {
         localStorage.setItem('deepsearch_pro_licensed', 'true');
         localStorage.setItem('deepsearch-research-agent_pro_licensed', 'true');
+        localStorage.setItem('sovereign_pro_licensed', 'true');
+        localStorage.setItem('pro_licensed', 'true');
+        if (params.has('licensed') || params.has('pro')) {
+          const cleanUrl = window.location.pathname;
+          window.history.replaceState({}, document.title, cleanUrl);
+        }
       }
       applyLicenseState();
     }
 
     function applyLicenseState() {
       const isPro = isProUser();
-      const wrap = document.getElementById('researchPaywallWrap');
-      if (wrap) {
-        if (isPro) wrap.classList.remove('locked');
-        else wrap.classList.add('locked');
-      }
+      document.querySelectorAll('.paywall-wrap').forEach(wrap => {
+        if (isPro) {
+          wrap.classList.remove('locked');
+          wrap.classList.remove('is-locked');
+        } else {
+          wrap.classList.add('locked');
+          wrap.classList.add('is-locked');
+        }
+      });
       const badge = document.getElementById('licenseBadge') || document.getElementById('header-pro-badge');
       if (badge) {
         badge.textContent = isPro ? '⭐ PRO ACTIVE' : '⚡ FREE TIER';
         badge.style.color = isPro ? '#14f195' : '#ef4444';
       }
-      const banner = document.getElementById('salesBanner');
+      const banner = document.getElementById('salesBanner') || document.getElementById('salesBannerWrap');
       if (banner) banner.style.display = isPro ? 'none' : 'flex';
     }
 
+    function openLicenseModal() {
+      const modal = document.getElementById('licenseModal') || document.getElementById('proPaywallModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        modal.classList.add('open');
+      }
+    }
+
+    function closeLicenseModal() {
+      const modal = document.getElementById('licenseModal') || document.getElementById('proPaywallModal');
+      if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('open');
+      }
+    }
+
     function openProPaywallModal() {
-      document.getElementById('proPaywallModal').classList.add('open');
+      openLicenseModal();
     }
 
     function closeProPaywallModal() {
-      document.getElementById('proPaywallModal').classList.remove('open');
+      closeLicenseModal();
     }
 
     function openDePayModal() {
       window.open('https://depay.com/pay/428790dd-7ad1-407c-8ecf-c048c77a4cb8', '_blank');
     }
 
-    function openLicensePrompt(providedKey) {
-      let key = providedKey;
-      if (!key && typeof prompt === 'function') {
-        try { key = prompt('Enter your DeepSearch Pro license key or Stripe receipt email:'); } catch(e) {}
+    function activateLicenseKey(customKey) {
+      const input = document.getElementById('license-input') || document.getElementById('licenseKeyInput');
+      const key = (customKey || (input ? input.value : '')).trim();
+      if (!key || key.length < 3) {
+        showToast('⚠️ Please enter your license key or email address.');
+        return false;
       }
-      if (key && (key.trim().length > 3 || key.includes('@'))) {
-        localStorage.setItem('deepsearch_pro_licensed', 'true');
-        localStorage.setItem('deepsearch-research-agent_pro_licensed', 'true');
-        applyLicenseState();
-        closeProPaywallModal();
-        if (!providedKey) showToast('⭐ DeepSearch Sovereign Pro Activated!');
+      localStorage.setItem('deepsearch_pro_licensed', 'true');
+      localStorage.setItem('deepsearch-research-agent_pro_licensed', 'true');
+      localStorage.setItem('sovereign_pro_licensed', 'true');
+      localStorage.setItem('pro_licensed', 'true');
+      applyLicenseState();
+      closeLicenseModal();
+      showToast('⭐ DeepSearch Sovereign Pro Activated!');
+      return true;
+    }
+    window.activateLicenseSubmit = activateLicenseKey;
+
+    function openLicensePrompt(providedKey) {
+      if (providedKey && (providedKey.trim().length > 3 || providedKey.includes('@'))) {
+        activateLicenseKey(providedKey);
+      } else {
+        openLicenseModal();
       }
     }
 
     function copyReportMarkdown() {
       if (!isProUser()) {
-        openProPaywallModal();
+        openLicenseModal();
         return;
       }
       const text = document.getElementById('reportContentArea').innerText;
@@ -1820,7 +1866,7 @@
 
     function downloadJSONBundle() {
       if (!isProUser()) {
-        openProPaywallModal();
+        openLicenseModal();
         return;
       }
       const data = {
@@ -1839,7 +1885,13 @@
     }
 
     function showToast(msg) {
-      const t = document.getElementById('toast');
+      let t = document.getElementById('toast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'toast';
+        t.className = 'toast';
+        document.body.appendChild(t);
+      }
       t.textContent = msg;
       t.style.display = 'block';
       setTimeout(() => { t.style.display = 'none'; }, 2600);
@@ -1861,9 +1913,9 @@
   </script>
 
   <!-- Pro Paywall Modal -->
-  <div class="pro-modal" id="proPaywallModal" onclick="if(event.target===this)closeProPaywallModal()">
+  <div class="pro-modal" id="licenseModal" data-alias="paywall-modal" onclick="if(event.target===this)closeLicenseModal()">
     <div class="pro-modal-box">
-      <button class="pro-modal-close" onclick="closeProPaywallModal()">&times;</button>
+      <button class="pro-modal-close" onclick="closeLicenseModal()">&times;</button>
       <div class="pro-modal-title">⭐ DeepSearch Sovereign Pro</div>
       <div class="pro-modal-subtitle">Autonomous multi-source intelligence with complete scientific rigor.</div>
       <ul class="value-checklist">
@@ -1892,15 +1944,15 @@
         </button>
       </div>
       <div style="margin-top: 14px; display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap;">
-        <input type="text" id="licenseKeyInput" placeholder="DEEPSEARCH-PRO-2026 or receipt email" style="padding: 8px 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; font-size: 12px; max-width: 240px; flex: 1;">
-        <button id="btnActivateKey" onclick="openLicensePrompt(document.getElementById('licenseKeyInput').value)" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">Activate Key</button>
-      </div>
-      <div style="text-align: center; margin-top: 10px;">
-        <button onclick="openLicensePrompt()" style="background: none; border: none; color: #9aa0a6; font-size: 11px; cursor: pointer; text-decoration: underline;">Enter key via browser prompt</button>
+        <input type="text" id="license-input" data-alias="licenseKeyInput" placeholder="DEEPSEARCH-PRO-2026 or receipt email" style="padding: 8px 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; font-size: 12px; max-width: 240px; flex: 1;">
+        <button id="btnActivateKey" onclick="activateLicenseKey()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">Activate Key</button>
       </div>
     </div>
   </div>
   
-  <footer class="zoth-brand-footer"><div class="zoth-foot-name">Zoth Studio</div><div>Engineered by Neal Frazier Tech (<a href="https://github.com/1nc0gn30" target="_blank" rel="noopener">@1nc0gn30</a>) &bull; <a href="https://nullai.tech" target="_blank" rel="noopener">NullAI Platform</a></div></footer>
+  <footer class="zoth-brand-footer" style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-top:1px solid rgba(255,255,255,0.08); font-size:12px; color:var(--text-secondary); flex-wrap:wrap; gap:12px;">
+    <div class="zoth-foot-name">Deep Research Studio v2.5.0</div>
+    <div>Engineered by Neal Frazier Tech (<a href="https://github.com/1nc0gn30/deepsearch-research-agent" target="_blank" rel="noopener" style="color:var(--g-blue, #4285f4); text-decoration:none;">@1nc0gn30</a>) &bull; <a href="https://nullai.tech" target="_blank" rel="noopener" style="color:var(--text-secondary); text-decoration:none;">NullAI Platform</a></div>
+  </footer>
 </body>
 </html>

@@ -1,6 +1,6 @@
 {
   "name": "deepsearch-research-agent",
-  "version": "2.0.0",
+  "version": "2.5.0",
   "description": "Autonomous Multi-Source Research Agent, Grounded Citation Graph & Fact Corroborator — Desktop Workstation",
   "main": "electron/main.cjs",
   "bin": {
@@ -8,10 +8,12 @@
     "deepsearch-agent": "./bin/deepsearch.js"
   },
   "scripts": {
-    "start": "python3 -m deepsearch_research_agent.cli serve --port 8084",
+    "serve": "python3 -m http.server 8122 --directory public",
+    "start": "python3 -m deepsearch_research_agent.cli serve --port 8122",
     "electron": "electron .",
     "app": "electron .",
-    "test": "pytest tests/"
+    "test:ui": "python3 scripts/verify_ui.py",
+    "test": "pytest tests/ && python3 scripts/verify_ui.py"
   },
   "keywords": [
     "deepsearch",
