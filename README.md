@@ -1,3 +1,9 @@
+<div align="center">
+  <img src="assets/hero-banner.svg" alt="DeepSearch Research Agent &amp; Studio — Sovereign Architecture Banner" width="100%" />
+</div>
+
+<br />
+
 # 🔍 DeepSearch Autonomous Research Agent & Studio
 
 <p align="center">
