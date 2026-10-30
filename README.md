@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/hero-banner.svg" alt="DeepSearch Research Agent &amp; Studio — Sovereign Architecture Banner" width="100%" />
+  <img src="assets/hero-banner.svg" alt="DeepSearch Research Agent & Studio — Sovereign Architecture Banner" width="100%" />
 </div>
 
 <br />
@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://deepsearch.nullai.tech"><img src="https://img.shields.io/badge/Live%20App-deepsearch.nullai.tech-1a73e8?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live App" /></a>
-  <img src="https://img.shields.io/badge/Founding%20Pass-$19%20Lifetime-14f195?style=for-the-badge" alt="Founding Pass" />
+  <img src="https://img.shields.io/badge/Access-100%25%20Free%20%26%20Open-10b981?style=for-the-badge" alt="100% Free & Open" />
   <img src="https://img.shields.io/badge/Model%20Context%20Protocol-MCP%20Server%20Ready-1e8e3e?style=for-the-badge" alt="MCP Server Ready" />
   <img src="https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-f9ab00?style=for-the-badge&logo=python&logoColor=white" alt="Python Versions" />
   <img src="https://img.shields.io/badge/License-Apache%202.0-d93025?style=for-the-badge" alt="Apache 2.0 License" />
@@ -21,7 +21,11 @@
 
 **DeepSearch** is a state-of-the-art autonomous deep research agent and consensus synthesis engine. Designed to tackle open-ended, complex scientific, technological, and market intelligence questions, DeepSearch iteratively decomposes research objectives, executes multi-angle boolean search queries, harvests and verifies primary literature, resolves contradictory empirical claims, and outputs publication-grade synthesized reports with mathematical grounding scores and interactive visualizations.
 
-🚀 **Live Interactive Web App**: [https://deepsearch.nullai.tech](https://deepsearch.nullai.tech) — 100% in-browser client execution with zero cloud egress. Pro Lifetime access available for a one-time $19 founding member price via [Stripe](https://buy.stripe.com/7sI7sA8hM2X8eFG8ww) and Solana DePay.
+🚀 **Live Interactive Web App**: [https://deepsearch.nullai.tech](https://deepsearch.nullai.tech) — 100% in-browser client execution with zero cloud egress. 100% Free & Open Access with zero paywalls.
+
+☕ **Support Development**:
+- **Stripe Buy Us a Coffee**: [https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X](https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X)
+- **Solana Tip Address**: `GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK`
 
 ### 🌟 Key Capabilities
 
@@ -108,20 +112,21 @@ export OPENAI_API_KEY="your_openai_api_key"
 export ANTHROPIC_API_KEY="your_anthropic_api_key"
 ```
 
-### 3. Command Line Interface (CLI)
+### 3. ZothOS CLI Binary (`deepsearch-research-agent` / `deepsearch`)
 
 ```bash
-# Run quick research (1 stage, 5-10 sources)
-deepsearch run "CRISPR-Cas12 vs Cas9 off-target editing rates" --depth quick
+# Check version and platform diagnostics
+deepsearch-research-agent -v
+deepsearch-research-agent platform
 
-# Run exhaustive research with custom domain focus and exports
-deepsearch run \
-  "State of Fault-Tolerant Quantum Computing & Logical Qubit Scaling (2026)" \
-  --depth exhaustive \
-  --breadth 8 \
-  --focus-domains "nature.com,science.org,aps.org,ieee.org" \
-  --output-dir ./output-report \
-  --format all
+# Generate an autonomous research plan with DAG sub-queries
+deepsearch-research-agent plan "State of Fault-Tolerant Quantum Computing & Logical Qubit Scaling (2026)"
+
+# Execute multi-perspective deep research
+deepsearch-research-agent research "CRISPR-Cas12 vs Cas9 off-target editing rates" --depth quick
+
+# Start the standalone Web Workstation on port 8122
+deepsearch-research-agent serve --port 8122
 ```
 
 ### 4. Python Programmatic API

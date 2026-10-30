@@ -42,9 +42,9 @@
         "description": "Autonomous multi-source deep research agent with grounded inline citations, quantitative benchmark verification, and consensus matrices.",
         "offers": {
           "@type": "Offer",
-          "price": "19.00",
+          "price": "0",
           "priceCurrency": "USD",
-          "url": "https://buy.stripe.com/4gMfZg9AheOsdhKbcAfw40L"
+          "url": "https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X"
         },
         "creator": {
           "@type": "Person",
@@ -77,7 +77,7 @@
             "name": "What payment methods are supported for Pro Lifetime?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Pro lifetime access is available for a one-time $19 founding member price via Stripe (Credit Card, Apple Pay, Google Pay) and DePay Solana Web3 checkout."
+              "text": "Pro lifetime access is available for a one-time Free (100% Open Access) via Stripe (Credit Card, Apple Pay, Google Pay) and DePay Solana Web3 checkout."
             }
           }
         ]
@@ -761,34 +761,27 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
-    /* Paywall Blur & Lock Overlays */
+    /* 100% Free & Open Access - Zero Paywalls */
     .paywall-wrap {
       position: relative;
     }
     .paywall-wrap.locked #reportContentArea,
-    .paywall-wrap.is-locked #reportContentArea {
-      filter: blur(6px);
-      user-select: none;
-      pointer-events: none;
-      max-height: 480px;
-      overflow: hidden;
+    .paywall-wrap.is-locked #reportContentArea,
+    .paywall-wrap #reportContentArea {
+      filter: none !important;
+      user-select: auto !important;
+      pointer-events: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
     }
-    .paywall-wrap .paywall-overlay {
-      display: none;
-      position: absolute;
-      inset: 0;
-      background: rgba(11, 11, 18, 0.78);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      align-items: center;
-      justify-content: center;
-      z-index: 50;
-      border-radius: var(--radius-md);
-      padding: 24px;
-    }
-    .paywall-wrap.locked .paywall-overlay,
-    .paywall-wrap.is-locked .paywall-overlay {
-      display: flex;
+    .paywall-wrap .paywall-overlay,
+    .paywall-overlay,
+    #salesBanner,
+    #licenseModal,
+    .pro-modal,
+    [data-alias="salesBannerWrap"],
+    [data-alias="paywall-modal"] {
+      display: none !important;
     }
     .paywall-lock-card {
       background: #12121a;
@@ -1009,8 +1002,50 @@
   </style>
   
   <link rel="stylesheet" href="zoth-theme.css">
+  <link rel="stylesheet" href="wave.css">
+  <link rel="stylesheet" href="wave-states.css">
+  <link rel="stylesheet" href="wave-type.css">
+
+  <!-- Zoth 100% Open-Access & Buy Us a Coffee Invariant -->
+  <script id="zoth-open-access-init">
+    (function() {
+      try {
+        var keys = ['agent_audiocipher_pro', 'agent_cyber_turtle_pro', 'agent_datamosh_pro', 'agent_nexus3d_pro', 'agent_policy_pro', 'audiocipher_license', 'audiocipher_pro_licensed', 'badge3d_pro_licensed', 'certpath_pro_key', 'certpath_pro_licensed', 'cron_rhythm_pro_key', 'cron_rhythm_pro_licensed', 'cwv-speed-engine_pro_licensed', 'cwv_pro_licensed', 'cyber_turtle_pro_licensed', 'datamosh_pro_licensed', 'deepsearch-research-agent_pro_licensed', 'deepsearch_pro_licensed', 'entropy_studio_licensed', 'envguard-secrets-vault_pro_licensed', 'envguard_pro_license', 'etsy_connector_pro', 'jwt_guard_licensed', 'mdg_pro_licensed', 'neuro_pro_licensed', 'nexus3d_pro_licensed', 'omnipost_pro_key', 'omnipost_pro_licensed', 'osint_pro_licensed', 'payload-entropy-studio_pro_licensed', 'polyglot_pro_licensed', 'pro_licensed', 'promptmaster_pro_licensed', 'promptmaster_pro_active', 'robots-txt-auditor_pro_licensed', 'robots_pro_licensed', 'schema_illustrator_pro_licensed', 'sovereign_pro_licensed', 'subsweep-lead-scanner_pro_licensed', 'subsweep_licensed', 'turtle_pro_licensed', 'ufo_sacred_licensed', 'vector-search-engine_pro_licensed', 'vector_studio_pro_licensed', 'web-security-guard_pro_licensed', 'web_security_guard_licensed', 'yourdigitalspace_pro', 'zela_guide_pro_licensed', 'zoth_ascii_magic_pro', 'zoth_audiocipher_licensed', 'zoth_badge3d_licensed', 'zoth_cyber_turtle_licensed', 'zoth_datamosh_licensed', 'zoth_etsy_licensed', 'zoth_nexus3d_licensed', 'zoth_osint_licensed', 'zoth_policy_licensed', 'zoth_sacred_licensed', 'zoth_ufo_licensed'];
+        for (var i = 0; i < keys.length; i++) {
+          localStorage.setItem(keys[i], 'true');
+        }
+        localStorage.setItem('pm_license_v2', JSON.stringify({ method: 'open_access', ref: 'free_forever', at: '2026-01-01T00:00:00Z' }));
+        window.isPro = true;
+        window.isProLicensed = true;
+      } catch (e) {}
+    })();
+  </script>
+  <style id="zoth-open-access-override">
+    .paywall-overlay, .output-paywall-overlay, #outputPaywallOverlay, #schemaPaywallOverlay,
+    #transformerPaywallOverlay, #proPaywallModal, #licenseModal, #salesBanner, #founding-offer-banner,
+    #funnelHeroBanner, [data-alias="paywallOverlay"], [data-alias="founding-offer-banner"] {
+      display: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    .paywall-wrap #outputPreview, .paywall-wrap #reportContentArea, .paywall-content,
+    .paywall-content.locked, .paywall-wrap.is-locked #outputPreview, .paywall-wrap.locked #outputPreview {
+      filter: none !important;
+      -webkit-filter: none !important;
+      user-select: auto !important;
+      pointer-events: auto !important;
+    }
+  </style>
+
 </head>
 <body>
+
+<div id="zoth-coffee-support-bar" style="background: linear-gradient(90deg, rgba(16,185,129,0.12), rgba(212,175,55,0.14)); border-bottom: 1px solid rgba(212,175,55,0.35); padding: 8px 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; z-index: 9999;">
+  <span style="color: #10B981; font-weight: 800;">✦ 100% FREE &amp; OPEN ACCESS · ZERO PAYWALLS</span>
+  <a href="https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X" target="_blank" rel="noopener noreferrer" style="background: #D4AF37; color: #08080B; padding: 4px 12px; border-radius: 6px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">☕ Buy Us a Coffee (Stripe)</a>
+  <a href="solana:GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK" onclick="if(navigator.clipboard){navigator.clipboard.writeText('GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK');this.textContent='✓ Copied GG2eQb...dXoK!';}" style="background: rgba(20,241,149,0.15); color: #14F195; border: 1px solid rgba(20,241,149,0.45); padding: 4px 12px; border-radius: 6px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">◎ Solana Tip (GG2e...dXoK)</a>
+</div>
+
 <div class="zoth-brand-bar"><span class="zoth-z">Z</span><span class="zoth-name">Zoth Studio</span><span class="zoth-tool">DeepSearch Research Agent</span><span class="zoth-spacer"></span><span class="zoth-badge">NULLAI · SOVEREIGN</span></div>
 
 <!-- Top App Header -->
@@ -1030,27 +1065,28 @@
     </div>
     
     <div class="header-actions">
-      <div class="status-indicator" style="cursor: pointer;" onclick="openLicenseModal()">
+      <div class="status-indicator">
         <span class="pulse-dot"></span>
-        <span id="licenseBadge" class="license-badge" style="font-weight: 700; font-size: 11px; color: #ef4444;">⚡ FREE TIER</span>
+        <span id="licenseBadge" class="license-badge" style="font-weight: 700; font-size: 11px; color: #10B981;">✦ 100% UNLOCKED</span>
       </div>
-      <button onclick="openLicenseModal()" style="background: linear-gradient(135deg, #1a73e8, #9334e6); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">⭐ Upgrade $19</button>
+      <a href="https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X" target="_blank" rel="noopener noreferrer" style="background: #D4AF37; color: #08080B; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">☕ Buy Us a Coffee</a>
+      <a href="solana:GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK" onclick="if(navigator.clipboard){navigator.clipboard.writeText('GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK');this.textContent='✓ Copied!';}" style="background: rgba(20,241,149,0.15); color: #14F195; border: 1px solid rgba(20,241,149,0.45); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">◎ Tip SOL</a>
     </div>
   </header>
 
   <!-- High-Converting Sales Funnel Banner -->
   <div id="salesBanner" data-alias="salesBannerWrap" style="background: linear-gradient(90deg, rgba(26,115,232,0.15) 0%, rgba(20,241,149,0.15) 100%); border-bottom: 1px solid var(--outline); padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px; z-index: 99; position: relative;">
     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-      <span style="background: var(--g-red); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Founding Sale</span>
+      <span style="background: var(--g-red); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">100% Open & Free</span>
       <span style="font-weight: 600;">Sovereign Lifetime Pass:</span>
-      <span style="color: var(--text-tertiary); text-decoration: line-through;">$79</span>
-      <span style="color: var(--g-green); font-weight: 800; font-size: 14px;">$19 Lifetime</span>
+      <span style="color: var(--text-tertiary); text-decoration: line-through;">Free (100% Open Access)</span>
+      <span style="color: var(--g-green); font-weight: 800; font-size: 14px;">100% Free & Unlocked</span>
       <span style="color: var(--text-secondary); font-size: 12px;">• Unlimited In-Depth Dossiers • Multi-Source Grounding • Zero Cloud Egress</span>
     </div>
     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-      <a href="https://buy.stripe.com/4gMfZg9AheOsdhKbcAfw40L" target="_blank" style="padding: 6px 14px; min-height: 32px; background: #635bff; color: #fff; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+      <a href="https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X" target="_blank" style="padding: 6px 14px; min-height: 32px; background: #635bff; color: #fff; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        <span>Card / Apple Pay ($19)</span>
+        <span>☕ Buy Us a Coffee (Stripe)</span>
       </a>
       <button onclick="openDePayModal()" style="padding: 6px 14px; min-height: 32px; background: #14f195; color: #000; border-radius: 6px; border: none; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -1066,10 +1102,10 @@
   <nav class="workspace-nav">
     <button class="nav-tab active" onclick="switchTab('studio')">🔍 Deep Research Studio</button>
     <button class="nav-tab" onclick="switchTab('planner')">📑 Autonomous Query Planner</button>
-    <button class="nav-tab" onclick="switchTab('consensus')">⚖️ Source &amp; Consensus Matrix</button>
-    <button class="nav-tab" onclick="switchTab('analytics')">📊 Data Points &amp; SVG Visuals</button>
-    <button class="nav-tab" onclick="switchTab('mcp-hub')">🤖 AI Agent &amp; MCP Hub</button>
-    <button class="nav-tab" onclick="switchTab('methodology')">📖 Methodology &amp; Docs</button>
+    <button class="nav-tab" onclick="switchTab('consensus')">⚖️ Source & Consensus Matrix</button>
+    <button class="nav-tab" onclick="switchTab('analytics')">📊 Data Points & SVG Visuals</button>
+    <button class="nav-tab" onclick="switchTab('mcp-hub')">🤖 AI Agent & MCP Hub</button>
+    <button class="nav-tab" onclick="switchTab('methodology')">📖 Methodology & Docs</button>
   </nav>
 
   <!-- Main Content Body -->
@@ -1083,7 +1119,7 @@
           id="researchQueryInput" 
           class="search-input" 
           placeholder="Ask any complex scientific, technical, or market intelligence question..." 
-          value="State of Fault-Tolerant Quantum Computing &amp; Logical Qubit Scaling (2026)"
+          value="State of Fault-Tolerant Quantum Computing & Logical Qubit Scaling (2026)"
         />
         <button id="btnRunResearch" class="btn-search" onclick="runAutonomousResearch()">
           <span>Run Deep Research</span>
@@ -1129,22 +1165,22 @@
             <ul class="stepper">
               <li class="step-item completed" id="step1">
                 <div class="step-dot"></div>
-                <div class="step-title">1. Scoping &amp; Query Tree</div>
+                <div class="step-title">1. Scoping & Query Tree</div>
                 <div class="step-desc">Decompose into 4 investigative angles</div>
               </li>
               <li class="step-item completed" id="step2">
                 <div class="step-dot"></div>
                 <div class="step-title">2. Evidence Harvesting</div>
-                <div class="step-desc">48 primary papers &amp; preprints indexed</div>
+                <div class="step-desc">48 primary papers & preprints indexed</div>
               </li>
               <li class="step-item completed" id="step3">
                 <div class="step-dot"></div>
-                <div class="step-title">3. Credibility &amp; Domain Scoring</div>
+                <div class="step-title">3. Credibility & Domain Scoring</div>
                 <div class="step-desc">Weighted authority calibration (&gt;85 avg)</div>
               </li>
               <li class="step-item completed" id="step4">
                 <div class="step-dot"></div>
-                <div class="step-title">4. Consensus &amp; Contradictions</div>
+                <div class="step-title">4. Consensus & Contradictions</div>
                 <div class="step-desc">4 empirical claims cross-corroborated</div>
               </li>
               <li class="step-item completed active" id="step5">
@@ -1197,7 +1233,7 @@
             <!-- Dynamic Markdown Body with Frosted Glass Paywall Wrap -->
             <div class="paywall-wrap locked is-locked" id="researchPaywallWrap" data-alias="codePaywallWrap">
               <div class="markdown-body" id="reportContentArea">
-                <h1>State of Fault-Tolerant Quantum Computing &amp; Logical Qubit Scaling (2026)</h1>
+                <h1>State of Fault-Tolerant Quantum Computing & Logical Qubit Scaling (2026)</h1>
                 <div class="callout-box">
                   <strong>Executive Summary:</strong> The period between 2024 and 2026 marks the conclusive transition from the NISQ era to the Fault-Tolerant Quantum Computing (FTQC) regime. Experimental physical error rates have fallen below the fault-tolerance threshold ($p &lt; 0.25\% &lt; p_{th} \approx 0.75\%$), enabling exponential error suppression across superconducting, neutral atom, and trapped-ion modalities.
                 </div>
@@ -1250,7 +1286,7 @@
                   </tbody>
                 </table>
 
-                <h2>2. Consensus &amp; Verification Findings</h2>
+                <h2>2. Consensus & Verification Findings</h2>
                 <div class="callout-box green">
                   <strong>Strong Consensus (94.2% Agreement):</strong> Dynamic optical shuttling in neutral atom arrays enables faster scaling of logical qubit counts (48 logical qubits) compared to planar superconducting chips through 2026.
                 </div>
@@ -1261,12 +1297,12 @@
               <div class="paywall-overlay" id="researchOverlay" data-alias="paywallOverlay">
                 <div class="paywall-lock-card">
                   <div class="lock-icon">🔒</div>
-                  <h3>Full Consensus Dossier &amp; Primary Citations Locked</h3>
+                  <h3>Full Consensus Dossier & Primary Citations Locked</h3>
                   <p>Upgrade to Sovereign Pro for full unredacted consensus dossiers, 48 primary source DOI citations, raw JSON exports, and unconstrained multi-source research agents.</p>
                   <div class="paywall-actions" style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-                    <a href="https://buy.stripe.com/4gMfZg9AheOsdhKbcAfw40L" target="_blank" class="btn-pay-stripe">
+                    <a href="https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X" target="_blank" class="btn-pay-stripe">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                      Card / Apple Pay ($19)
+                      ☕ Buy Us a Coffee (Stripe)
                     </a>
                     <button onclick="openDePayModal()" class="btn-pay-sol">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -1303,7 +1339,7 @@
 
         <div class="tree-wrapper" id="queryTreeContainer">
           <div class="tree-node">
-            <strong>🎯 Root Research Goal:</strong> <span id="treeRootGoal">State of Fault-Tolerant Quantum Computing &amp; Logical Qubit Scaling (2026)</span>
+            <strong>🎯 Root Research Goal:</strong> <span id="treeRootGoal">State of Fault-Tolerant Quantum Computing & Logical Qubit Scaling (2026)</span>
           </div>
           <div class="tree-node branch">
             <strong>🌿 Branch 1 (Architectural Thresholds):</strong> <code>site:nature.com OR site:aps.org "quantum error correction" "distance 7" surface code filetype:pdf</code>
@@ -1330,7 +1366,7 @@
         <div class="panel-header">
           <div class="panel-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--g-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            Harvested Source Inventory &amp; Credibility Scores
+            Harvested Source Inventory & Credibility Scores
           </div>
           <input type="text" placeholder="Filter sources by domain or keyword..." class="search-input" style="max-width:300px; padding:4px 12px; border:1px solid var(--outline); border-radius: var(--radius-sm); font-size:13px;" oninput="filterSources(this.value)" />
         </div>
@@ -1509,8 +1545,8 @@
           <ol>
             <li><strong>Recursive Query Decomposition:</strong> Transforms broad objectives into Directed Acyclic Graphs (DAGs) of targeted sub-queries.</li>
             <li><strong>Adaptive Multi-Engine Harvesting:</strong> Queries scientific indexes, regulatory filings, and primary literature using precise Boolean filters.</li>
-            <li><strong>Domain Authority &amp; Credibility Scoring:</strong> Computes document credibility coefficients $\alpha_{cred} \in [0, 100]$ based on institutional trust, peer review, and recency decay.</li>
-            <li><strong>Dialectical Consensus &amp; Conflict Resolution:</strong> Partitions claims into corroborating vs contradicting clusters, isolating minority viewpoints and unverified assumptions.</li>
+            <li><strong>Domain Authority & Credibility Scoring:</strong> Computes document credibility coefficients $\alpha_{cred} \in [0, 100]$ based on institutional trust, peer review, and recency decay.</li>
+            <li><strong>Dialectical Consensus & Conflict Resolution:</strong> Partitions claims into corroborating vs contradicting clusters, isolating minority viewpoints and unverified assumptions.</li>
             <li><strong>Grounded Multi-Perspective Synthesis:</strong> Constructs formal citation graphs with zero unreferenced claims and calibrated confidence metrics.</li>
           </ol>
         </div>
@@ -1697,7 +1733,7 @@
           </thead>
           <tbody>${tableRows}</tbody>
         </table>
-        <h2>2. Consensus &amp; Verification Findings</h2>
+        <h2>2. Consensus & Verification Findings</h2>
         <div class="callout-box green">
           <strong>Strong Consensus:</strong> Multilateral corroboration verified across peer-reviewed publications with zero unreferenced empirical claims.
         </div>
@@ -1758,45 +1794,25 @@
     }
 
     function isProUser() {
-      return localStorage.getItem('deepsearch_pro_licensed') === 'true' || 
-             localStorage.getItem('deepsearch-research-agent_pro_licensed') === 'true' ||
-             localStorage.getItem('sovereign_pro_licensed') === 'true' ||
-             localStorage.getItem('pro_licensed') === 'true';
+      return true;
     }
 
     function checkLicenseOnLoad() {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('licensed') === 'true' || params.get('pro') === 'true') {
-        localStorage.setItem('deepsearch_pro_licensed', 'true');
-        localStorage.setItem('deepsearch-research-agent_pro_licensed', 'true');
-        localStorage.setItem('sovereign_pro_licensed', 'true');
-        localStorage.setItem('pro_licensed', 'true');
-        if (params.has('licensed') || params.has('pro')) {
-          const cleanUrl = window.location.pathname;
-          window.history.replaceState({}, document.title, cleanUrl);
-        }
-      }
       applyLicenseState();
     }
 
     function applyLicenseState() {
-      const isPro = isProUser();
       document.querySelectorAll('.paywall-wrap').forEach(wrap => {
-        if (isPro) {
-          wrap.classList.remove('locked');
-          wrap.classList.remove('is-locked');
-        } else {
-          wrap.classList.add('locked');
-          wrap.classList.add('is-locked');
-        }
+        wrap.classList.remove('locked');
+        wrap.classList.remove('is-locked');
       });
       const badge = document.getElementById('licenseBadge') || document.getElementById('header-pro-badge');
       if (badge) {
-        badge.textContent = isPro ? '⭐ PRO ACTIVE' : '⚡ FREE TIER';
-        badge.style.color = isPro ? '#14f195' : '#ef4444';
+        badge.textContent = '✦ 100% UNLOCKED';
+        badge.style.color = '#10B981';
       }
       const banner = document.getElementById('salesBanner') || document.getElementById('salesBannerWrap');
-      if (banner) banner.style.display = isPro ? 'none' : 'flex';
+      if (banner) banner.style.display = 'none';
     }
 
     function openLicenseModal() {
@@ -1824,7 +1840,7 @@
     }
 
     function openDePayModal() {
-      window.open('https://depay.com/pay/428790dd-7ad1-407c-8ecf-c048c77a4cb8', '_blank');
+      window.open('solana:GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK', '_blank');
     }
 
     function activateLicenseKey(customKey) {
@@ -1854,10 +1870,6 @@
     }
 
     function copyReportMarkdown() {
-      if (!isProUser()) {
-        openLicenseModal();
-        return;
-      }
       const text = document.getElementById('reportContentArea').innerText;
       navigator.clipboard.writeText(text).then(() => {
         showToast('Report Markdown copied to clipboard!');
@@ -1865,10 +1877,6 @@
     }
 
     function downloadJSONBundle() {
-      if (!isProUser()) {
-        openLicenseModal();
-        return;
-      }
       const data = {
         query: document.getElementById('researchQueryInput').value,
         timestamp: new Date().toISOString(),
@@ -1920,27 +1928,27 @@
       <div class="pro-modal-subtitle">Autonomous multi-source intelligence with complete scientific rigor.</div>
       <ul class="value-checklist">
         <li><span class="check">✓</span> <span><strong>Unlimited Autonomous Research</strong> — no query limits or rate throttling</span></li>
-        <li><span class="check">✓</span> <span><strong>Exhaustive 5-Stage Depth</strong> — multi-hop query DAGs &amp; contradiction resolution</span></li>
-        <li><span class="check">✓</span> <span><strong>Full Grounded Citations</strong> — unredacted ArXiv, Nature, IEEE DOIs &amp; PDF anchors</span></li>
-        <li><span class="check">✓</span> <span><strong>Unrestricted Exports</strong> — instant copy to Obsidian / Markdown &amp; raw JSON bundles</span></li>
+        <li><span class="check">✓</span> <span><strong>Exhaustive 5-Stage Depth</strong> — multi-hop query DAGs & contradiction resolution</span></li>
+        <li><span class="check">✓</span> <span><strong>Full Grounded Citations</strong> — unredacted ArXiv, Nature, IEEE DOIs & PDF anchors</span></li>
+        <li><span class="check">✓</span> <span><strong>Unrestricted Exports</strong> — instant copy to Obsidian / Markdown & raw JSON bundles</span></li>
         <li><span class="check">✓</span> <span><strong>Local Silicon Privacy</strong> — 100% in-browser execution with zero cloud telemetry</span></li>
-        <li><span class="check">✓</span> <span><strong>Lifetime Updates</strong> — all future models, agent MCP tools &amp; consensus algorithms</span></li>
+        <li><span class="check">✓</span> <span><strong>Lifetime Updates</strong> — all future models, agent MCP tools & consensus algorithms</span></li>
       </ul>
       <div style="background: rgba(255,255,255,0.04); border-radius: 8px; padding: 16px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
         <div>
           <div style="font-size: 12px; color: #9aa0a6; text-transform: uppercase; font-weight: 700;">Founding Lifetime Pass</div>
-          <div style="font-size: 24px; font-weight: 800; color: #14f195;">$19 <span style="font-size: 14px; text-decoration: line-through; color: #80868b; font-weight: 400;">$79</span></div>
+          <div style="font-size: 24px; font-weight: 800; color: #14f195;">Free (100% Open Access) <span style="font-size: 14px; text-decoration: line-through; color: #80868b; font-weight: 400;">Free (100% Open Access)</span></div>
         </div>
         <div style="text-align: right; font-size: 11px; color: #9aa0a6;">One-time payment<br>Never pay again</div>
       </div>
       <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <a href="https://buy.stripe.com/4gMfZg9AheOsdhKbcAfw40L" target="_blank" class="btn-pay-stripe" style="flex: 1; justify-content: center; padding: 12px;">
+        <a href="https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X" target="_blank" class="btn-pay-stripe" style="flex: 1; justify-content: center; padding: 12px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-          Pay with Card / Apple Pay ($19)
+          Pay with ☕ Buy Us a Coffee (Stripe)
         </a>
         <button onclick="openDePayModal()" class="btn-pay-sol" style="flex: 1; justify-content: center; padding: 12px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          Pay with SOL ($19)
+          ◎ Solana Tip (GG2eQb…dXoK)
         </button>
       </div>
       <div style="margin-top: 14px; display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap;">

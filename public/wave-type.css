@@ -1,0 +1,184 @@
+/* ============================================================
+   DEEP RESEARCH STUDIO — WAVE TYPOGRAPHY LAYER (public/wave-type.css)
+   Focused typographic refinement pass:
+   1. Readable measure (60–72ch) on the main work surface and reading panes
+   2. Tabular numerals (tabular-nums / tnum) on scores, prices, metrics, timestamps
+   3. Calibrated heading tracking for optical clarity across type scale
+   Uses only selectors that already exist in public/index.html.
+   Zero color changes. Zero motion/animation. Zero script changes.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Readable Measure on the Main Work Surface & Reading Panes
+   ------------------------------------------------------------ */
+
+/* Primary research paper output and documentation copy */
+.markdown-body p {
+  max-width: 68ch;
+  line-height: 1.68;
+  text-wrap: pretty;
+}
+
+.markdown-body li {
+  max-width: 68ch;
+  line-height: 1.65;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  max-width: 70ch;
+}
+
+/* Callout and executive summary blocks */
+.callout-box {
+  max-width: 72ch;
+  line-height: 1.62;
+}
+
+/* Modal and paywall narrative measure */
+.pro-modal-subtitle {
+  max-width: 52ch;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.paywall-lock-card p {
+  max-width: 50ch;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* Stepper stage descriptions */
+.step-desc {
+  max-width: 38ch;
+  line-height: 1.45;
+}
+
+/* Planner & MCP panel explanatory descriptions */
+.panel-card p {
+  max-width: 68ch;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------
+   2. Tabular Numbers on Existing Scores, Prices & Metrics
+   ------------------------------------------------------------ */
+
+/* Confidence percentages, verification scores, stage counts */
+.status-badge {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+#paperConfidenceBadge,
+#paperSourceCount,
+#planStageBadge,
+#licenseBadge {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Data table numeric cells (qubit counts, fidelity percentages, scores) */
+table.data-table td,
+table.data-table th {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Stream log timestamps, extracted claim counts, consensus figures */
+.stream-line {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Price callouts ($19, $79) in banner, header, modal and paywall */
+#salesBanner,
+.header-actions button,
+.btn-pay-stripe,
+.btn-pay-sol,
+.pro-modal-box,
+.paywall-lock-card {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Analytics chart titles and value labels */
+.chart-title {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ------------------------------------------------------------
+   3. Calibrated Heading & Title Tracking
+   ------------------------------------------------------------ */
+
+/* Primary Document Heading (large display measure) */
+.markdown-body h1 {
+  letter-spacing: -0.024em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+/* Section Headings (H2) */
+.markdown-body h2 {
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+/* Sub-section Headings (H3) */
+.markdown-body h3 {
+  letter-spacing: -0.005em;
+  line-height: 1.4;
+}
+
+/* App Header Brand Title */
+.brand-title {
+  letter-spacing: -0.018em;
+}
+
+/* Panel Header Titles */
+.panel-title {
+  letter-spacing: -0.012em;
+}
+
+/* Stepper Stage Titles */
+.step-title {
+  letter-spacing: -0.005em;
+}
+
+/* Chart Card Titles */
+.chart-title {
+  letter-spacing: -0.012em;
+}
+
+/* Paywall Lock Card Heading */
+.paywall-lock-card h3 {
+  letter-spacing: -0.018em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+/* Pro Modal Title */
+.pro-modal-title {
+  letter-spacing: -0.022em;
+  line-height: 1.25;
+}
+
+/* Eyebrows & Uppercase Header Badges */
+.chip-label {
+  letter-spacing: 0.08em;
+}
+
+.brand-badge {
+  letter-spacing: 0.04em;
+}
+
+.zoth-brand-bar .zoth-tool {
+  letter-spacing: 0.06em;
+}
+
+.zoth-brand-bar .zoth-badge {
+  letter-spacing: 0.05em;
+}

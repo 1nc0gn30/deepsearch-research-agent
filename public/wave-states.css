@@ -1,0 +1,410 @@
+/* ============================================================
+   DEEP RESEARCH STUDIO — WAVE STATES LAYER (public/wave-states.css)
+   Focused interactive states for existing selectors:
+   1. High-contrast visible focus indicators (:focus-visible)
+   2. Refined hover and active transitions (120ms–180ms ease)
+   3. Empty state presentations (:empty)
+   4. Error, warning, and contested state presentations
+   5. Prefers-reduced-motion compliance
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Accessible High-Contrast Focus States (:focus-visible)
+   ------------------------------------------------------------ */
+
+:focus {
+  outline: none;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.workspace-nav .nav-tab:focus-visible,
+.chip:focus-visible,
+.preset-chip:focus-visible,
+.btn-search:focus-visible,
+#btnRunResearch:focus-visible,
+.btn-tool:focus-visible,
+.btn-copy-code:focus-visible,
+.btn-pay-stripe:focus-visible,
+.btn-pay-sol:focus-visible,
+#btn-paywall-key:focus-visible,
+#btnActivateKey:focus-visible,
+.pro-modal-close:focus-visible,
+.search-input:focus-visible,
+#researchQueryInput:focus-visible,
+#license-input:focus-visible {
+  outline: 2px solid var(--zoth-gold, #d4af37) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.28) !important;
+}
+
+.search-input-wrapper:focus-within {
+  border-color: var(--zoth-gold, #d4af37) !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.22) !important;
+}
+
+/* ------------------------------------------------------------
+   2. Refined Tactile Hover & Active States
+   ------------------------------------------------------------ */
+
+/* Workspace Nav Tabs */
+.workspace-nav .nav-tab {
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+
+.workspace-nav .nav-tab:hover {
+  color: var(--zoth-gold, #d4af37);
+  background: rgba(212, 175, 55, 0.08);
+  border-bottom-color: rgba(212, 175, 55, 0.4);
+}
+
+.workspace-nav .nav-tab:active {
+  background: rgba(212, 175, 55, 0.12);
+}
+
+/* Filter Chips & Preset Chips */
+.chip,
+.preset-chip {
+  transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+
+.chip:hover,
+.preset-chip:hover {
+  background: var(--surface-container-high, #16161f);
+  color: var(--zoth-text, #f5e6ab);
+  border-color: rgba(212, 175, 55, 0.5);
+  transform: translateY(-1px);
+}
+
+.chip:active,
+.preset-chip:active {
+  transform: translateY(0);
+}
+
+/* Primary Search & Execution Button */
+.btn-search {
+  transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+}
+
+.btn-search:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(26, 115, 232, 0.4);
+}
+
+.btn-search:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(26, 115, 232, 0.25);
+}
+
+/* Tool Buttons */
+.btn-tool {
+  transition: color 140ms ease, border-color 140ms ease, background-color 140ms ease, transform 140ms ease;
+}
+
+.btn-tool:hover:not(:disabled) {
+  border-color: var(--zoth-gold, #d4af37);
+  color: var(--zoth-gold, #d4af37);
+  background: rgba(212, 175, 55, 0.06);
+  transform: translateY(-1px);
+}
+
+.btn-tool:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Code Copy Button */
+.btn-copy-code {
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.btn-copy-code:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: var(--zoth-gold, #d4af37);
+  color: var(--zoth-gold, #d4af37);
+}
+
+/* Top Sales Banner Key Button & Pro Activation Button */
+#btn-paywall-key {
+  transition: color 140ms ease, border-color 140ms ease, background-color 140ms ease;
+}
+
+#btn-paywall-key:hover {
+  border-color: var(--zoth-gold, #d4af37) !important;
+  color: var(--zoth-gold, #d4af37) !important;
+  background: rgba(212, 175, 55, 0.08) !important;
+}
+
+#btnActivateKey {
+  transition: background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+
+#btnActivateKey:hover {
+  background: rgba(212, 175, 55, 0.22) !important;
+  border-color: var(--zoth-gold, #d4af37) !important;
+  transform: translateY(-1px);
+}
+
+#btnActivateKey:active {
+  transform: translateY(0);
+}
+
+/* Paywall Checkout Buttons */
+.btn-pay-stripe {
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+}
+
+.btn-pay-stripe:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 4px 16px rgba(26, 115, 232, 0.45);
+}
+
+.btn-pay-stripe:active {
+  transform: translateY(0);
+}
+
+.btn-pay-sol {
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+}
+
+.btn-pay-sol:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 4px 16px rgba(20, 241, 149, 0.35);
+}
+
+.btn-pay-sol:active {
+  transform: translateY(0);
+}
+
+/* Modal Close Button */
+.pro-modal-close {
+  transition: color 140ms ease, background-color 140ms ease, transform 140ms ease;
+}
+
+.pro-modal-close:hover {
+  color: var(--zoth-gold, #d4af37);
+  background: rgba(212, 175, 55, 0.12);
+  transform: scale(1.08);
+}
+
+.pro-modal-close:active {
+  transform: scale(0.96);
+}
+
+/* Status Indicator Pill in Header */
+.status-indicator {
+  transition: opacity 140ms ease, background-color 140ms ease;
+  border-radius: var(--radius-sm, 8px);
+  padding: 4px 8px;
+}
+
+.status-indicator:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Data Table Rows */
+table.data-table tbody tr {
+  transition: background-color 120ms ease;
+}
+
+table.data-table tbody tr:hover {
+  background-color: rgba(212, 175, 55, 0.04);
+}
+
+/* Tree Nodes in Query Planner */
+.tree-node {
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.tree-node:hover {
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(212, 175, 55, 0.03);
+}
+
+/* Chart Cards in Analytics */
+.chart-card {
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.chart-card:hover {
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* ------------------------------------------------------------
+   3. Empty State Presentations (:empty)
+   ------------------------------------------------------------ */
+
+/* Stream Log Empty State */
+#streamLog:empty,
+.stream-feed:empty {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#streamLog:empty::before,
+.stream-feed:empty::before {
+  content: "Awaiting execution stream. Run deep research or select a preset to stream logs.";
+  display: block;
+  padding: 24px 16px;
+  color: var(--text-tertiary, #80868b);
+  font-size: 12px;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Report Content Area Empty State */
+#reportContentArea:empty {
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#reportContentArea:empty::before {
+  content: "No report generated yet. Choose a research depth and query to synthesize findings.";
+  display: block;
+  padding: 48px 24px;
+  color: var(--text-tertiary, #80868b);
+  font-size: 13.5px;
+  text-align: center;
+}
+
+/* Query Tree Empty State */
+#queryTreeContainer:empty {
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#queryTreeContainer:empty::before {
+  content: "No active query decomposition tree. Click 'Regenerate Sub-Queries' to build DAG nodes.";
+  display: block;
+  padding: 32px 16px;
+  color: var(--text-tertiary, #80868b);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Sources Table Empty Body */
+#sourcesTable tbody:empty::before {
+  content: "No sources match the active filter criteria.";
+  display: table-caption;
+  caption-side: bottom;
+  padding: 24px 16px;
+  color: var(--text-tertiary, #80868b);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------
+   4. Error, Warning & Contested Presentations
+   ------------------------------------------------------------ */
+
+/* Status Badges */
+.status-badge.refuted {
+  background: rgba(249, 112, 102, 0.14) !important;
+  color: var(--md-error, #f97066) !important;
+  border: 1px solid rgba(249, 112, 102, 0.35) !important;
+}
+
+.status-badge.contested {
+  background: rgba(245, 230, 171, 0.12) !important;
+  color: var(--zoth-gold, #d4af37) !important;
+  border: 1px solid rgba(245, 230, 171, 0.35) !important;
+}
+
+.status-badge.verified {
+  background: rgba(18, 183, 106, 0.12) !important;
+  color: var(--md-success, #12b76a) !important;
+  border: 1px solid rgba(18, 183, 106, 0.3) !important;
+}
+
+/* Stream Warning Line */
+.stream-line.warn {
+  color: #f6ad55 !important;
+  background: rgba(246, 173, 85, 0.08);
+  border-left: 2px solid #f6ad55;
+  padding-left: 8px;
+}
+
+/* Form Input Validation Errors */
+.search-input:invalid:not(:placeholder-shown),
+.search-input[aria-invalid="true"] {
+  border-color: var(--md-error, #f97066) !important;
+  box-shadow: 0 0 0 2px rgba(249, 112, 102, 0.25) !important;
+}
+
+#license-input:invalid:not(:placeholder-shown),
+#license-input[aria-invalid="true"] {
+  border-color: var(--md-error, #f97066) !important;
+  background: rgba(249, 112, 102, 0.06) !important;
+  box-shadow: 0 0 0 2px rgba(249, 112, 102, 0.25) !important;
+}
+
+/* Disabled Interactive Elements */
+button:disabled,
+.btn-search:disabled,
+.btn-tool:disabled {
+  opacity: 0.55 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+/* Toast Presentation Polish */
+#toast,
+.toast {
+  border: 1px solid var(--zoth-border, #2a2a33);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(18, 18, 26, 0.95);
+  color: var(--zoth-text-2, #edeef2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(212, 175, 55, 0.15);
+  font-family: var(--font-stack, sans-serif);
+}
+
+/* ------------------------------------------------------------
+   5. Prefers-Reduced-Motion Compliance
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .btn-search,
+  .btn-tool,
+  .btn-copy-code,
+  .btn-pay-stripe,
+  .btn-pay-sol,
+  .pro-modal-close,
+  .chip,
+  .preset-chip,
+  .workspace-nav .nav-tab,
+  #btnActivateKey,
+  #btn-paywall-key,
+  .status-indicator,
+  .tree-node,
+  .chart-card,
+  table.data-table tbody tr {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  #toast,
+  .toast {
+    animation: none !important;
+  }
+}

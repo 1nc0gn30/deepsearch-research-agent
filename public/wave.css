@@ -1,0 +1,270 @@
+/* ============================================================
+   DEEP RESEARCH STUDIO — WAVE ENHANCEMENT LAYER (public/wave.css)
+   Focused polish for the working tool surface:
+   1. Clearer typographic hierarchy (headings, eyebrows, tables, callouts)
+   2. High-contrast, accessible visible focus indicators (:focus-visible)
+   3. Calibrated transform/opacity entrance motion on result appearance
+   Respects prefers-reduced-motion. Pure CSS extension.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Typography & Hierarchy Refinements on the Tool Surface
+   ------------------------------------------------------------ */
+
+/* Workspace Tab Navigation */
+.workspace-nav .nav-tab {
+  font-family: var(--font-stack, sans-serif);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--text-secondary, #9aa0a6);
+  padding: 12px 18px;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.workspace-nav .nav-tab:hover {
+  color: var(--zoth-gold, #d4af37);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.workspace-nav .nav-tab.active {
+  color: var(--zoth-gold, #d4af37);
+  font-weight: 600;
+  border-bottom-color: var(--zoth-gold, #d4af37);
+}
+
+/* Eyebrows & Controls */
+.chip-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary, #80868b);
+}
+
+.chip {
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border: 1px solid var(--outline, #2a2a33);
+  background: var(--surface-container, #12121a);
+  color: var(--text-secondary, #9aa0a6);
+  transition: all 0.15s ease;
+}
+
+.chip:hover {
+  background: var(--surface-container-high, #16161f);
+  color: var(--text, #edeef2);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.chip.active {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--zoth-gold, #d4af37);
+  border-color: var(--zoth-gold, #d4af37);
+  font-weight: 600;
+}
+
+/* Panel Header & Stepper Hierarchy */
+.panel-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text, #edeef2);
+}
+
+.step-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text, #edeef2);
+  letter-spacing: 0.005em;
+}
+
+.step-desc {
+  font-size: 12px;
+  color: var(--text-secondary, #9aa0a6);
+  line-height: 1.45;
+}
+
+/* Synthesized Report Document Preview Typography */
+.report-paper {
+  background: var(--surface, #0b0b12);
+  border: 1px solid var(--outline, #2a2a33);
+}
+
+.markdown-body h1 {
+  color: var(--zoth-text, #f5e6ab);
+  font-size: 1.625rem; /* 26px */
+  font-weight: 700;
+  line-height: 1.28;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+}
+
+.markdown-body h2 {
+  color: var(--zoth-gold, #d4af37);
+  font-size: 1.1875rem; /* 19px */
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.375rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.markdown-body h3 {
+  color: var(--text, #edeef2);
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body p {
+  color: var(--text-secondary, #9aa0a6);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.callout-box {
+  background: rgba(212, 175, 55, 0.05);
+  border-left: 3px solid var(--zoth-gold, #d4af37);
+  color: var(--text, #edeef2);
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  border-radius: 0 var(--radius-sm, 8px) var(--radius-sm, 8px) 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.callout-box.green {
+  background: rgba(18, 183, 106, 0.08);
+  border-left-color: var(--md-success, #12b76a);
+  color: var(--text, #edeef2);
+}
+
+/* Data Table Typography & Structure */
+table.data-table th {
+  background: var(--surface-container-high, #16161f);
+  color: var(--text, #edeef2);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border, #2a2a33);
+}
+
+table.data-table td {
+  color: var(--text, #edeef2);
+  border-bottom: 1px solid var(--border-subtle, #23232c);
+  font-size: 0.84rem;
+}
+
+table.data-table tr:hover td {
+  background-color: rgba(212, 175, 55, 0.03);
+}
+
+/* Tool Buttons & Status Badges */
+.btn-tool {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1px solid var(--outline, #2a2a33);
+  background: var(--surface-container, #12121a);
+  color: var(--text, #edeef2);
+}
+
+.btn-tool:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  color: var(--zoth-gold, #d4af37);
+}
+
+.btn-search {
+  font-family: var(--font-stack, sans-serif);
+  letter-spacing: 0.01em;
+}
+
+/* ------------------------------------------------------------
+   2. Visible Focus States (:focus-visible)
+   High-contrast, accessible rings for all interactive surfaces
+   ------------------------------------------------------------ */
+
+:focus {
+  outline: none;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.nav-tab:focus-visible,
+.chip:focus-visible,
+.btn-tool:focus-visible,
+.btn-search:focus-visible,
+.btn-copy-code:focus-visible {
+  outline: 2px solid var(--zoth-gold, #d4af37) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.22) !important;
+}
+
+.search-input-wrapper:focus-within {
+  border-color: var(--zoth-gold, #d4af37);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.22);
+}
+
+/* ------------------------------------------------------------
+   3. Calibrated Result Entrance Motion
+   Short transform/opacity reveal using EASE_OUT_EXPO
+   ------------------------------------------------------------ */
+
+@keyframes resultEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Trigger entrance when synthesized result elements appear */
+#reportContentArea > * {
+  animation: resultEntrance 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Live synthesis event stream entries */
+.stream-line {
+  animation: resultEntrance 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Workspace tab switch active result pane */
+.tab-pane.active {
+  animation: resultEntrance 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ------------------------------------------------------------
+   4. Reduced Motion Compliance
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  #reportContentArea > *,
+  .stream-line,
+  .tab-pane.active {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .nav-tab,
+  .chip,
+  .btn-tool,
+  .btn-search,
+  .search-input-wrapper {
+    transition: none !important;
+  }
+}
