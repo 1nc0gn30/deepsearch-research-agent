@@ -243,4 +243,4 @@ The repository includes a comprehensive 15-job CI matrix in [`.github/workflows/
 
 Licensed under the [Apache License, Version 2.0](LICENSE).
 
-Engineered by Neal Frazier Tech ([@1nc0gn30](https://github.com/1nc0gn30)) • [NullAI Platform](https://nullai.tech)
+Engineered by 1nc0gn30 • NullAI ([@1nc0gn30](https://github.com/1nc0gn30)) • [NullAI Platform](https://nullai.tech)
