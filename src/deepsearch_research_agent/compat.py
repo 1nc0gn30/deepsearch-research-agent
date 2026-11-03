@@ -250,7 +250,11 @@ def atomic_write_bytes(
 
 def normalize_path(path: Union[str, Path]) -> Path:
     """Normalize a path to its resolved absolute Path representation."""
-    return Path(path).expanduser().resolve()
+    p = Path(path).expanduser()
+    resolved = p.resolve()
+    if not resolved.is_absolute():
+        resolved = Path(os.path.abspath(str(p)))
+    return resolved
 
 
 def to_posix_path(path: Union[str, Path]) -> str:
