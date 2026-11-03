@@ -231,8 +231,9 @@ class TestPublicStudioUi:
         assert self.html_path.exists()
         content = self.html_path.read_text(encoding="utf-8")
 
-        # Zero external CDN script tags (100% offline ready)
-        assert "<script src=" not in content.lower()
+        # Zero external CDN script tags (100% offline ready; local /assets/ allowed)
+        cleaned = content.lower().replace('<script src="/assets/sovereign-upgrade.js" defer></script>', "")
+        assert "<script src=" not in cleaned
         # No external Google Fonts link tag to ensure offline execution
         assert "fonts.googleapis.com" not in content
 
