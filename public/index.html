@@ -1821,6 +1821,22 @@
     <div class="zoth-foot-name">Deep Research Studio v2.5.0</div>
     <div>Engineered by 1nc0gn30 • NullAI (<a href="https://github.com/1nc0gn30/deepsearch-research-agent" target="_blank" rel="noopener" style="color:var(--g-blue, #4285f4); text-decoration:none;">@1nc0gn30</a>) &bull; <a href="https://nullai.tech" target="_blank" rel="noopener" style="color:var(--text-secondary); text-decoration:none;">NullAI Platform</a></div>
   </footer>
-  <script src="/assets/sovereign-upgrade.js" defer></script>
+  
+
+  <script src="/sovereign_tutorial.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", function() {
+      if (window.createSovereignTutorial) {
+        window.createSovereignTutorial({
+          toolId: "deepsearch-research-agent",
+          toolName: "DeepSearch Research Agent",
+          tagline: "Autonomous deep-dive web researcher with grounded inline citations!",
+          accentColor: "#38BDF8",
+          steps: [{"icon": "\ud83d\udd0e", "title": "Deep Autonomous Research", "desc": "Give DeepSearch any question or topic. It searches dozens of sources, reads the pages, and synthesizes an executive dossier."}, {"icon": "\ud83d\udccc", "title": "True Grounded Citations", "desc": "Every claim is backed by direct link citations so you can verify the facts yourself with zero hallucination."}, {"icon": "\ud83d\udcd1", "title": "Export Clean Markdown Reports", "desc": "Download structured research briefs complete with executive summaries and key findings."}]
+        });
+      }
+    });
+  </script>
+
 </body>
 </html>
