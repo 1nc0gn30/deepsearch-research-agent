@@ -92,7 +92,7 @@ table.data-table th {
   font-feature-settings: "tnum" 1;
 }
 
-/* Price callouts ($19, $79) in banner, header, modal and paywall */
+/* Price callouts (metrics) in banner, header, modal and paywall */
 #salesBanner,
 .header-actions button,
 .btn-pay-stripe,
