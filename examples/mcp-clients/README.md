@@ -26,7 +26,7 @@ When registered as an MCP server, `deepsearch-research-agent` exposes the follow
 - **Linux**: `~/.config/Claude/claude_desktop_config.json`
 
 ### Installation
-Copy the configuration from [claude_desktop_config.json](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/examples/mcp-clients/claude_desktop_config.json):
+Copy the configuration from [claude_desktop_config.json](./claude_desktop_config.json):
 
 ```json
 {
@@ -59,7 +59,7 @@ Place `cursor_mcp.json` in your project root at `.cursor/mcp.json` or globally u
 - **Global Settings**: `Settings` -> `Features` -> `MCP Servers` -> `Add New MCP Server`
 
 ### Configuration Snippet
-See [cursor_mcp.json](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/examples/mcp-clients/cursor_mcp.json):
+See [cursor_mcp.json](./cursor_mcp.json):
 
 ```json
 {
@@ -84,7 +84,7 @@ See [cursor_mcp.json](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/dee
 - **Path**: `~/.vscode/extensions/cline/mcp_settings.json`
 
 ### Configuration Snippet
-See [cline_mcp.json](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/examples/mcp-clients/cline_mcp.json):
+See [cline_mcp.json](./cline_mcp.json):
 
 ```json
 {
@@ -114,7 +114,7 @@ See [cline_mcp.json](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deep
 Open Zed Settings (`Cmd+,` or `Ctrl+,`), or edit `~/.config/zed/settings.json`.
 
 ### Configuration Snippet
-See [zed_settings.json](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/examples/mcp-clients/zed_settings.json):
+See [zed_settings.json](./zed_settings.json):
 
 ```json
 {

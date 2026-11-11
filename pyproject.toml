@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [
-    { name = "DeepSearch Research Team", email = "dev@deepsearch-agent.org" }
+    { name = "1nc0gn30" }
 ]
 keywords = [
     "deepsearch",
@@ -52,10 +52,10 @@ dev = [
 deepsearch = "deepsearch_research_agent.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/deepsearch-agent/deepsearch-research-agent"
-Documentation = "https://github.com/deepsearch-agent/deepsearch-research-agent#readme"
-Repository = "https://github.com/deepsearch-agent/deepsearch-research-agent.git"
-Issues = "https://github.com/deepsearch-agent/deepsearch-research-agent/issues"
+Homepage = "https://github.com/1nc0gn30/deepsearch-research-agent"
+Documentation = "https://github.com/1nc0gn30/deepsearch-research-agent#readme"
+Repository = "https://github.com/1nc0gn30/deepsearch-research-agent.git"
+Issues = "https://github.com/1nc0gn30/deepsearch-research-agent/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

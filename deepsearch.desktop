@@ -5,7 +5,7 @@ Name=DeepSearch Research Studio
 GenericName=Autonomous Multi-Source Research Workstation
 Comment=Autonomous Multi-Source Research Agent, Grounded Citation Graph & Fact Corroborator
 Exec=/usr/local/bin/deepsearch desktop
-Icon=/media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/zoth-micro-repos/deepsearch-research-agent/assets/icon.png
+Icon=deepsearch
 Terminal=false
 Categories=Development;System;Utility;
 StartupNotify=true
@@ -16,5 +16,5 @@ Name=Open DeepSearch CLI
 Exec=x-terminal-emulator -e "/usr/local/bin/deepsearch --help"
 
 [Desktop Action Web]
-Name=Open Web UI (Port 8084)
+Name=Open Web UI (Port 8122)
 Exec=/usr/local/bin/deepsearch web

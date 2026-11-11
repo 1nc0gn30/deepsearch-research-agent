@@ -1,303 +1,184 @@
 <div align="center">
-  <img src="assets/hero-banner.svg" alt="DeepSearch Research Agent & Studio — Sovereign Architecture Banner" width="100%" />
+  <img src="assets/hero-banner.svg" alt="DeepSearch Research Agent &amp; Studio Banner" width="100%" />
 </div>
 
-<br />
+# DeepSearch Research Agent & Studio
 
-# 🔍 DeepSearch Autonomous Research Agent & Studio
+[![CI](https://github.com/1nc0gn30/deepsearch-research-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/1nc0gn30/deepsearch-research-agent/actions/workflows/ci.yml)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Dependencies: Zero](https://img.shields.io/badge/dependencies-0-success.svg)](pyproject.toml)
+[![Zoth Studio Dossier](https://img.shields.io/badge/Zoth%20Studio-Dossier-D4AF37.svg)](https://zoth.nullai.tech/tools/deepsearch-research-agent)
 
-<p align="center">
-  <a href="https://deepsearch.nullai.tech"><img src="https://img.shields.io/badge/Live%20App-deepsearch.nullai.tech-1a73e8?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live App" /></a>
-  <img src="https://img.shields.io/badge/Access-100%25%20Free%20%26%20Open-10b981?style=for-the-badge" alt="100% Free & Open" />
-  <img src="https://img.shields.io/badge/Model%20Context%20Protocol-MCP%20Server%20Ready-1e8e3e?style=for-the-badge" alt="MCP Server Ready" />
-  <img src="https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-f9ab00?style=for-the-badge&logo=python&logoColor=white" alt="Python Versions" />
-  <img src="https://img.shields.io/badge/License-Apache%202.0-d93025?style=for-the-badge" alt="Apache 2.0 License" />
-  <img src="https://img.shields.io/badge/CI%2FCD-15--Job%20Matrix%20Passing-9334e6?style=for-the-badge" alt="CI/CD Status" />
-</p>
+Zero-dependency multi-source deep research agent, grounded citation graph analyzer, contradiction detector, and synthesis engine built on the Python 3.9+ standard library. Ships with a standalone offline-ready Deep Research Studio web interface on loopback port `127.0.0.1:8122`, a full CLI (`deepsearch`), and a JSON-RPC 2.0 Model Context Protocol (MCP) server.
 
----
-
-## Executive Overview
-
-**DeepSearch** is a state-of-the-art autonomous deep research agent and consensus synthesis engine. Designed to tackle open-ended, complex scientific, technological, and market intelligence questions, DeepSearch iteratively decomposes research objectives, executes multi-angle boolean search queries, harvests and verifies primary literature, resolves contradictory empirical claims, and outputs publication-grade synthesized reports with mathematical grounding scores and interactive visualizations.
-
-🚀 **Live Interactive Web App**: [https://deepsearch.nullai.tech](https://deepsearch.nullai.tech) — 100% in-browser client execution with zero cloud egress. 100% Free & Open Access with zero paywalls.
-
-☕ **Support Development**:
-- **Stripe Buy Us a Coffee**: [https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X](https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X)
-- **Solana Tip Address**: `GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK`
-
-### 🌟 Key Capabilities
-
-- 🌳 **Recursive Tree-of-Thought Query Decomposition**: Breaks down broad questions into multi-stage Directed Acyclic Graphs (DAGs) with automated Boolean operator crafting (`site:`, `filetype:pdf`, `intitle:`).
-- ⚖️ **Dialectical Consensus & Contradiction Matrix**: Cross-references claims across dozens of sources, computing weighted agreement ratios and isolating contested assumptions.
-- 📐 **Calibrated Confidence Scoring**: Calculates grounded confidence metrics $C \in [0, 1]$ based on domain authority, recency decay, peer-review weight, and corroboration depth.
-- 🔌 **Native Model Context Protocol (MCP) Server**: Drop-in MCP integration for Claude Desktop, Cursor, Cline, Zed, and custom LLM runtimes.
-- 🖥️ **Deep Research Studio UI**: Built-in web studio with live query branch visualizer, consensus matrix, interactive SVG metrics charts, and copy-ready client config hub.
-- 📦 **Multi-Format Export**: Generates peer-reviewed Markdown reports, interactive standalone HTML documents, and machine-readable JSON data bundles.
+Engineered by **1nc0gn30** ([@1nc0gn30](https://github.com/1nc0gn30), [1nc0gn30.si](https://1nc0gn30.si)) • **NullAI** ([nullai.tech](https://nullai.tech)).
 
 ---
 
-## 🏛️ System Architecture
+## Overview
 
-```
-+----------------------------------------------------------------------------------------------------+
-|                                DEEPSEARCH SYSTEM ARCHITECTURE                                      |
-+----------------------------------------------------------------------------------------------------+
-
-                           [ Human Query / MCP Client / IDE / Web UI ]
-                                                |
-                                                v
-               +----------------------------------------------------------------+
-               |              Stage 1: Autonomous Query Planner                 |
-               |   - Tree-of-Thought Decomposition (Technical, Market, Risk)    |
-               |   - Search Operator Crafting (site:, filetype:pdf, boolean)    |
-               +-------------------------------+--------------------------------+
-                                               |
-                                               v
-               +----------------------------------------------------------------+
-               |              Stage 2: Parallel Evidence Harvester              |
-               |   - Multi-Engine Crawling (Serper, Tavily, ArXiv, PubMed)      |
-               |   - Asynchronous Content Extraction & Boilerplate Scrubbing    |
-               +-------------------------------+--------------------------------+
-                                               |
-                                               v
-               +----------------------------------------------------------------+
-               |           Stage 3: Domain Authority & Credibility Engine       |
-               |   - Institutional Scoring (0-100), Bias Detection              |
-               |   - Recency Decay Factor: R(dt) = exp(-lambda * dt)            |
-               +-------------------------------+--------------------------------+
-                                               |
-                                               v
-               +----------------------------------------------------------------+
-               |            Stage 4: Consensus & Contradiction Matrix           |
-               |   - Corroborating vs Refuting Claim Partitioning               |
-               |   - Weighted Agreement Ratios & Conflict Flagging              |
-               +-------------------------------+--------------------------------+
-                                               |
-                                               v
-               +----------------------------------------------------------------+
-               |             Stage 5: Grounded Multi-Perspective Synthesizer     |
-               |   - Calibrated Confidence Math: C = sum(w_i * s_i * alpha)      |
-               |   - Zero-Unreferenced-Claim Policy & Interactive Visuals       |
-               +-------------------------------+--------------------------------+
-                                               |
-         +-------------------------------------+------------------------------------+
-         |                                     |                                    |
-         v                                     v                                    v
-[ 📄 Markdown Research Report ]    [ 🌐 Material 3 HTML Artifact ]     [ 📊 JSON Data Bundle ]
-```
+- **Zero Runtime Dependencies**: Pure Python 3.9+ standard library core (`urllib`, `html.parser`, `http.server`, `json`, `dataclasses`, `concurrent.futures`) paired with a self-contained browser UI.
+- **Recursive Query Decomposition**: Tree-of-Thought query planner (`planner.py`) decomposes research questions into targeted sub-queries with configurable depth (`quick`, `standard`, `deep`, `exhaustive`).
+- **Evidence Provenance & Citation Graph**: Tracks claim lineage, domain authority scores, credibility tiers, and circular citation loops (`evidence_graph.py`).
+- **Dialectical Contradiction Detection**: Cross-validates quantitative and qualitative assertions across sources (`contradiction_detector.py`) to classify claims as `Verified`, `Contested`, or `Refuted`.
+- **Multi-Format Report Export**: Synthesizes inline-cited Markdown, standalone HTML5, and machine-readable JSON bundles (`synthesizer.py`, `report_engine.py`).
+- **100% Free & Open Source**: Every workspace tab, citation export, CLI subcommand, and MCP tool is unlocked with zero telemetry. Optional community support is available via [Buy Us a Coffee (Stripe)](https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X).
 
 ---
 
-## 🚀 Quick Start
-
-### 1. Installation
-
-```bash
-# Install via pip
-pip install deepsearch-research-agent
-
-# Or run with uvx without installation
-uvx deepsearch-research-agent --help
-```
-
-### 2. Environment Configuration
-
-Set your preferred search and LLM API keys:
-```bash
-export SERPER_API_KEY="your_serper_api_key"
-export TAVILY_API_KEY="your_tavily_api_key"
-export OPENAI_API_KEY="your_openai_api_key"
-export ANTHROPIC_API_KEY="your_anthropic_api_key"
-```
-
-### 3. ZothOS CLI Binary (`deepsearch-research-agent` / `deepsearch`)
-
-```bash
-# Check version and platform diagnostics
-deepsearch-research-agent -v
-deepsearch-research-agent platform
-
-# Generate an autonomous research plan with DAG sub-queries
-deepsearch-research-agent plan "State of Fault-Tolerant Quantum Computing & Logical Qubit Scaling (2026)"
-
-# Execute multi-perspective deep research
-deepsearch-research-agent research "CRISPR-Cas12 vs Cas9 off-target editing rates" --depth quick
-
-# Start the standalone Web Workstation on port 8122
-deepsearch-research-agent serve --port 8122
-```
-
-### 4. Python Programmatic API
-
-```python
-from deepsearch_research_agent import DeepResearchEngine, ResearchConfig
-
-# Configure research depth and constraints
-config = ResearchConfig(
-    depth="exhaustive",
-    breadth=8,
-    enable_consensus_matrix=True,
-    min_source_authority=85,
-)
-
-engine = DeepResearchEngine(config=config)
-result = engine.run(
-    query="State of Fault-Tolerant Quantum Computing & Logical Qubit Scaling (2026)"
-)
-
-# Access structured data
-print(f"Confidence Score: {result.confidence_score:.2%}")
-print(f"Harvested Sources: {len(result.sources)}")
-print(f"Verified Claims: {len(result.verified_claims)}")
-
-# Export artifacts
-result.save_markdown("report.md")
-result.save_html("report.html")
-result.save_json("data_bundle.json")
-```
-
----
-
-## 🤖 Model Context Protocol (MCP) Integration
-
-DeepSearch can be attached as a live context engine in Claude Desktop, Cursor, Cline, and Zed.
-
-```bash
-# Launch MCP Server in stdio mode
-deepsearch mcp
-
-# Launch MCP Server over SSE (HTTP streaming)
-deepsearch mcp --transport sse --port 8080
-```
-
-### Drop-in Claude Desktop Configuration (`claude_desktop_config.json`):
-```json
-{
-  "mcpServers": {
-    "deepsearch-research-agent": {
-      "command": "uvx",
-      "args": ["deepsearch-research-agent", "mcp"],
-      "env": {
-        "SERPER_API_KEY": "your_serper_api_key",
-        "DEEPSEARCH_DEFAULT_DEPTH": "deep"
-      }
-    }
-  }
-}
-```
-
-For full integration guides for **Cursor**, **Cline**, and **Zed**, see [docs/MCP_GUIDE.md](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/docs/MCP_GUIDE.md) and the [examples/mcp-clients/](file:///media/neo/f2fdda77-178b-4603-ae80-c7aa4cd97908/deepsearch-research-agent/examples/mcp-clients/) directory.
-
----
-
-## 🖥️ Deep Research Studio Web UI
-
-DeepSearch ships with an interactive, offline-ready web studio located at [`public/index.html`](public/index.html).
-
-To launch the studio:
-```bash
-deepsearch studio --port 3000
-```
-Or open [`public/index.html`](public/index.html) directly in any modern browser.
-
-### Studio Features:
-1. 🔍 **Deep Research Studio**: Live multi-stage query decomposition visualizer, citation stream, and Markdown preview.
-2. 📑 **Autonomous Query Planner**: Interactive Tree-of-Thought graph, custom search operator generator, and boolean string preview.
-3. ⚖️ **Source & Consensus Matrix**: Interactive sources table with authority scoring, claim verification status, and corroboration gauges.
-4. 📊 **Data Points & SVG Visuals**: Native SVG multi-bar, time-series, radar, and donut charts with interactive tooltips.
-5. 🤖 **AI Agent & MCP Hub**: One-click configuration copier for Claude, Cursor, Cline, Zed, and live JSON-RPC tool simulator.
-6. 📖 **Research Methodology Guide**: Built-in interactive architectural documentation and confidence calibration math.
-
----
-
-## 📚 Documentation Directory
-
-- [Research Methodology & Synthesis Engine](docs/RESEARCH_METHODOLOGY.md)
-- [MCP Server Setup & Tool Specification](docs/MCP_GUIDE.md)
-- [Autonomous Query Planning & Search Operators](docs/QUERY_PLANNING_GUIDE.md)
-
----
-
-## 📁 Reference Examples
-
-- [Fault-Tolerant Quantum Computing Brief (2026)](examples/quantum-computing-brief/)
-- [Enterprise Autonomous AI Agents Market Intelligence](examples/market-intelligence-report/)
-- [MCP Client Configurations](examples/mcp-clients/)
-
----
-
-## 🧪 Testing & CI/CD
-
-Run the test suite locally:
-```bash
-PYTHONPATH=src pytest tests/ -v
-```
-
-The repository includes a comprehensive 15-job CI matrix in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) testing across Ubuntu, macOS, and Windows on Python 3.9, 3.10, 3.11, 3.12, and 3.13.
-
----
-
-## 📄 License & Attribution
-
-Licensed under the [Apache License, Version 2.0](LICENSE).
-
-Engineered by 1nc0gn30 • NullAI ([@1nc0gn30](https://github.com/1nc0gn30)) • [NullAI Platform](https://nullai.tech)
-
----
-
-## 🏛️ ZothOS v3.4, Zoth Studio v2 & Obsidian Second Brain Ecosystem
+## Architecture
 
 ```mermaid
-flowchart LR
-    subgraph ZothOS["🐧 ZothOS v3.4 CLI & Braille TUI"]
-        CLI["deepsearch-research-agent --help / --json"]
-        TUI["deepsearch-research-agent-tui<br/>Unicode U+2800 2x4 Braille"]
+flowchart TD
+    subgraph Interfaces["Client & Agent Interfaces"]
+        CLI["CLI (deepsearch)"]
+        TUI["Unicode Braille TUI (bin/deepsearch-research-agent-tui)"]
+        Studio["Deep Research Studio (127.0.0.1:8122)"]
+        MCP["MCP JSON-RPC 2.0 Server (stdio)"]
     end
 
-    subgraph Workstation["⚡ Sovereign Workstation"]
-        WEB["http://127.0.0.1:8122<br/>REST API & /health"]
+    subgraph Pipeline["5-Stage Research Pipeline"]
+        Plan["Stage 1: Query Planner (planner.py)"]
+        Crawl["Stage 2: Adaptive Evidence Crawler (crawler.py)"]
+        Graph["Stage 3: Provenance & Authority Graph (evidence_graph.py)"]
+        Verify["Stage 4: Contradiction Detector (contradiction_detector.py)"]
+        Synth["Stage 5: Grounded Synthesizer & Exporter (synthesizer.py / report_engine.py)"]
     end
 
-    subgraph Studio["🌌 Zoth Studio v2 & ZothOS-Lite"]
-        GODMODE["http://127.0.0.1:3000/tools/deepsearch-research-agent<br/>God-Mode Workstation"]
-        LITE["http://127.0.0.1:8145<br/>ZothOS-Lite Web Desktop"]
-    end
-
-    subgraph SecondBrain["💎 Obsidian Second Brain & STDP"]
-        TRACKER["http://127.0.0.1:8151<br/>Zoth Obsidian Tracker"]
-        NEURO["http://127.0.0.1:8094<br/>Neuro-Memory STDP Cortex"]
-        NOTE["Studio/Tools/Studio deepsearch-research-agent.md"]
-    end
-
-    CLI --> WEB
-    TUI --> WEB
-    WEB <--> GODMODE
-    WEB <--> LITE
-    WEB --> TRACKER
-    TRACKER <--> NOTE
-    NOTE <--> NEURO
+    CLI --> Plan
+    TUI --> Plan
+    Studio --> Plan
+    MCP --> Plan
+    Plan --> Crawl --> Graph --> Verify --> Synth
 ```
 
-### Cross-Surface Integration Matrix
+Detailed architectural documentation is available in [`docs/RESEARCH_METHODOLOGY.md`](docs/RESEARCH_METHODOLOGY.md), [`docs/QUERY_PLANNING_GUIDE.md`](docs/QUERY_PLANNING_GUIDE.md), [`docs/MCP_GUIDE.md`](docs/MCP_GUIDE.md), and [`examples/`](examples/).
 
-| Surface | Endpoint / Binary | Capabilities |
-| :--- | :--- | :--- |
-| **Standalone Workstation** | `http://127.0.0.1:8122` | 100% Free & Open-Access Web Deck, live `/health` & REST telemetry |
-| **Zoth Studio v2 Route** | `http://127.0.0.1:3000/tools/deepsearch-research-agent` | Interactive God-Mode component inside Zoth Studio (`https://zoth.nullai.tech`) |
-| **ZothOS v3.4 CLI & TUI** | `deepsearch-research-agent` / `deepsearch-research-agent-tui` | Global binary in `/usr/local/bin/` with Unicode `U+2800` Braille TUI & `--json` output |
-| **ZothOS-Lite Web Desktop** | `http://127.0.0.1:8145` | Browser-native KDE-style window manager & terminal launcher |
-| **Zoth Obsidian Tracker** | `http://127.0.0.1:8151` | Interactive Obsidian Second Brain vault explorer (`~/Documents/Obsidian Vault/Studio/Tools/Studio deepsearch-research-agent.md`) |
-| **Neuro-Memory STDP Cortex** | `http://127.0.0.1:8094` | 3-Factor STDP synaptic memory daemon & 21-tool MCP server |
+---
+
+## Quickstart
+
+### Clone and Install
 
 ```bash
-# Inspect CLI & Unicode U+2800 Braille TUI on ZothOS v3.4
-deepsearch-research-agent --help
-deepsearch-research-agent-tui --status
-deepsearch-research-agent-tui --json
-
-# Verify Second Brain Vault & 12-Step Verification Gallery on :8151
-zoth-obsidian-tracker --verify
+git clone https://github.com/1nc0gn30/deepsearch-research-agent.git
+cd deepsearch-research-agent
+python3 -m pip install -e ".[dev]"
 ```
 
+### Launch Local Workstation (`127.0.0.1:8122`)
+
+```bash
+# Lightweight static + telemetry workbench on 127.0.0.1:8122
+python3 server.py --host 127.0.0.1 --port 8122
+
+# Full REST API + Deep Research Studio server on 127.0.0.1:8122
+python3 -m deepsearch_research_agent.cli serve --host 127.0.0.1 --port 8122
+```
+
+Open `http://127.0.0.1:8122` in your browser, or view the Zoth Studio v2 dossier at [`https://zoth.nullai.tech/tools/deepsearch-research-agent`](https://zoth.nullai.tech/tools/deepsearch-research-agent).
+
+---
+
+## CLI & MCP Usage
+
+### CLI Subcommands (`deepsearch`)
+
+```bash
+# Inspect CLI options
+deepsearch --help
+
+# Generate a multi-stage Tree-of-Thought query plan
+deepsearch plan "Fault-tolerant logical qubit scaling 2026" --depth deep --json
+
+# Execute multi-perspective research and export Markdown / HTML / JSON
+deepsearch research "Enterprise MCP agent security patterns" --depth standard --output report.md
+
+# Fetch and extract clean text/Markdown from a URL
+deepsearch fetch https://example.com
+
+# Cross-validate claims and inspect citation provenance graphs
+deepsearch corroborate --help
+deepsearch provenance --help
+
+# Run multi-OS platform diagnostics
+deepsearch platform --json
+
+# Serve Deep Research Studio + REST API on loopback port 8122
+deepsearch serve --host 127.0.0.1 --port 8122
+```
+
+### ZothOS v3.4.0 CLI & Braille TUI Integration
+
+```bash
+# Unified Node/Electron launcher (delegates CLI flags or starts web mode on :8122)
+node bin/deepsearch.js --help
+node bin/deepsearch.js web
+
+# Unicode U+2800 Braille TUI & JSON telemetry
+python3 bin/deepsearch-research-agent-tui --json
+python3 bin/deepsearch-research-agent-tui --benchmark
+```
+
+### Model Context Protocol (MCP) Server
+
+Start the stdio JSON-RPC 2.0 server (sample client configurations in [`examples/mcp-clients/`](examples/mcp-clients/)):
+
+```bash
+deepsearch mcp
+# or directly:
+python3 -m deepsearch_research_agent.mcp_server
+```
+
+Registered MCP tools:
+- `deepsearch` / `deepsearch_execute` — Execute end-to-end grounded multi-source research with inline citations.
+- `deepsearch_plan` — Decompose a research prompt into structured sub-queries and focus perspectives.
+- `deepsearch_fetch` — Retrieve and sanitize remote HTML/text documents with authority scoring.
+- `deepsearch_corroborate` — Evaluate consensus vs contradiction across extracted source claims.
+- `deepsearch_evidence_graph` — Construct provenance DAGs and detect circular citation loops.
+- `deepsearch_export_report` — Render synthesized research into Markdown, HTML, or JSON bundles.
+- `deepsearch_get_diagnostics` — Return runtime, platform, and engine health diagnostics.
+
+---
+
+## REST API Endpoints
+
+When running `deepsearch serve --host 127.0.0.1 --port 8122` (or `python3 -m deepsearch_research_agent.ui_server --port 8122`):
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/health` | Service health status (`server.py` also exposes `/health` and `/api/stats`) |
+| `GET` | `/api/diagnostics` | Multi-OS runtime and engine diagnostics |
+| `GET` | `/api/mcp/config` | Ready-to-copy MCP JSON configs for Claude Desktop, Cursor, Cline, and Zed |
+| `POST` | `/api/plan` | Generate a structured research query plan |
+| `POST` | `/api/research` | Execute multi-source research and consensus synthesis |
+| `POST` | `/api/fetch` | Fetch and extract clean content from a target URL |
+| `POST` | `/api/corroborate` | Run dialectical claim corroboration and contradiction checks |
+| `POST` | `/api/export` | Export synthesized dossier as Markdown or HTML |
+| `POST` | `/api/export-bundle` | Export full machine-readable JSON research bundle |
+
+Mutating `POST` endpoints enforce local-origin CSRF verification (`127.0.0.1`, `localhost`, `::1`).
+
+---
+
+## Testing & Verification
+
+```bash
+# Run full unit, example, origin-guard, and UI regression test suite
+python3 -m pytest -q
+
+# Verify CLI & TUI entrypoints
+PYTHONPATH=src python3 -m deepsearch_research_agent.cli --help
+PYTHONPATH=src python3 -m deepsearch_research_agent.cli platform --json
+python3 bin/deepsearch-research-agent-tui --json
+
+# Secret & PII scan
+gitleaks detect --source . --no-banner --redact
+```
+
+---
+
+## License
+
+MIT License. Copyright (c) 2026 1nc0gn30 & NullAI. See [`LICENSE`](LICENSE) for details.

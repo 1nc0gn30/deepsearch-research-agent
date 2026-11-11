@@ -20,7 +20,7 @@
       "cross_referenced_claims": ["claim_tam_cagr", "claim_protocol_mcp"]
     },
     {
-      "source_key": "IDC_2026_AI_SPEND_FORECAST",
+      "source_key": "idc-spend-forecast",
       "title": "Worldwide Autonomous Enterprise Software Forecast, 2024–2028",
       "author_organization": "International Data Corporation (IDC)",
       "domain": "idc.com",
@@ -189,7 +189,7 @@
       "cross_referenced_claims": ["claim_query_decomposition"]
     },
     {
-      "source_key": "BLOOMBERG_INTELLIGENCE_AI_2026",
+      "source_key": "bloomberg-ai-report",
       "title": "Generative AI and Agentic Automation Market Analysis",
       "author_organization": "Bloomberg Intelligence",
       "domain": "bloomberg.com",
