@@ -179,6 +179,12 @@ gitleaks detect --source . --no-banner --redact
 
 ---
 
+## Support
+
+DeepSearch Research Agent is 100% free and open-access software with zero paywalls or feature gates. Optional community support:
+- [Buy Us a Coffee (Stripe)](https://buy.stripe.com/3cIfZg27PdKo2D64Ocfw40X)
+- Solana Tip: `GG2eQbVh8ut1BK6j1A2tz7pSySdLpD38BgyEhGcxdXoK`
+
 ## License
 
-MIT License. Copyright (c) 2026 1nc0gn30 & NullAI. See [`LICENSE`](LICENSE) for details.
+MIT License. Engineered by Neal Frazier Tech ([`@1nc0gn30`](https://github.com/1nc0gn30)) & [NullAI Platform](https://nullai.tech). See [`LICENSE`](LICENSE) for details.
